@@ -16,10 +16,10 @@ public class EnemySpawner : MonoBehaviour
     // spawnPoint 들을 담은 배열
     SpawnPoint[] spawnPoints;
 
-    // player 위치 정보를 실시간으로 받기 위한 변수
+    // player 위치 정보를 받기 위한 변수
     PlayerBase player;
 
-    // player 위치의 실시간 정보를 담는 변수
+    // player 위치정보를 담는 변수
     Vector3 playerPosition;
 
     private void Awake()
@@ -33,12 +33,6 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(Spawn());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // player의 실시간 위치 정보 갱신
-        playerPosition = player.transform.position;
-    }
 
     /// <summary>
     /// 매 Spawn 마다 랜덤한 spawnPoint 들 중 한곳에서 랜덤한 위치 반환 후 플레이어 위치에서 더한만큼에서 spawn 한다.
@@ -49,6 +43,7 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnInterval);
+            playerPosition = player.transform.position; // 현재 player의 위치
             pointIndex = Random.Range(0, spawnPoints.Length);   // spawn 할 spawnPoint 정하기
             spawnPosition = spawnPoints[pointIndex].GetSpawnPoint();    // spawnPoint 에서 랜덤한 위치 받기
             Factory.Instance.GetZombie(playerPosition + spawnPosition); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다

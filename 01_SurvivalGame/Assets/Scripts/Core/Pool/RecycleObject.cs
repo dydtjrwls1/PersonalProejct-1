@@ -7,7 +7,7 @@ public class RecycleObject : MonoBehaviour
 {
     public Action onDisable = null;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;

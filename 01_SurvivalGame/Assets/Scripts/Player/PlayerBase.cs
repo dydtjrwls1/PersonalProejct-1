@@ -6,18 +6,23 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
-    PlayerInputAction action;
-
-    Animator animator;
-
-    // 플레이어 진행 방향
-    Vector2 direction;
-
     // 플레이어 기본 속도
     public float speed = 5.0f;
 
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
+
+    bool isFlipped = false;
+
+    PlayerInputAction action;
+
+    Animator animator;
+
+    SpriteRenderer sr;
+
+
+    // 플레이어 진행 방향
+    Vector2 direction;
 
     // 속도 파라미터
     public float Speed
@@ -36,6 +41,7 @@ public class PlayerBase : MonoBehaviour
     {
         action = new PlayerInputAction();
         animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -60,6 +66,25 @@ public class PlayerBase : MonoBehaviour
     protected virtual void Move_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         direction = context.ReadValue<Vector2>().normalized;
+
+        //if (!isFlipped && direction.x < 0.0f)
+        //{
+        //    sr.flipX = true;
+        //    isFlipped = true;
+        //}
+
+        //if (direction.x > 0.0f)
+        //{
+        //    sr.flipX = false;
+        //    isFlipped = false;
+        //}
+
+        if ((direction.x < 0.0f && !isFlipped) || (direction.x > 0.0f && isFlipped))
+        {
+            sr.flipX = !sr.flipX;
+            isFlipped = !isFlipped;
+        }
+
         Speed = speed;
     }
 
