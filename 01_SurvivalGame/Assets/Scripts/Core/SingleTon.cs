@@ -11,7 +11,7 @@ public class SingleTon<T> : MonoBehaviour where T : Component
 
     static T instance = null;
 
-    public T Instance
+    public static T Instance
     {
         get
         {
