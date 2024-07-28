@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class PlayerBase : MonoBehaviour
 
     SpriteRenderer sr;
 
+    Transform nearestEnemy;
+
+    List<Transform> enemiesInShootingZone = new List<Transform>();
 
     // 플레이어 진행 방향
     Vector2 direction;
@@ -44,6 +48,16 @@ public class PlayerBase : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
+    private void Start()
+    {
+        StartCoroutine(GetClosestEnemyPosition());
+    }
+
+    private void Update()
+    {
+        transform.Translate(Time.deltaTime * Speed * direction);
+    }
+
     private void OnEnable()
     {
         action.Player.Enable();
@@ -56,6 +70,23 @@ public class PlayerBase : MonoBehaviour
         action.Player.Move.canceled -= Move_canceled;
         action.Player.Move.performed -= Move_performed;
         action.Player.Disable();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<EnemyBase>() != null)
+        {
+            enemiesInShootingZone.Add(collision.gameObject.transform);
+        }
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<EnemyBase>() != null)
+        {
+            enemiesInShootingZone.Add(collision.gameObject.transform);
+        }
     }
 
     /// <summary>
@@ -97,10 +128,36 @@ public class PlayerBase : MonoBehaviour
         Speed = 0.0f;
     }
 
-
-    // Update is called once per frame
-    void Update()
+    IEnumerator GetClosestEnemyPosition()
     {
-        transform.Translate(Time.deltaTime * Speed * direction);
+        while (true)
+        {
+            yield return new WaitForSeconds(0.2f);
+
+            if(enemiesInShootingZone.Count > 0)
+            {
+                nearestEnemy = FIndClosestEnemy();
+
+                Debug.Log($"Neareast Enemy : {nearestEnemy.name}");
+            }
+        }
+    }
+
+    Transform FIndClosestEnemy()
+    {
+        Transform ClosestEnemy = null;
+        float minDistance = float.MaxValue;
+
+        foreach (var enemy in enemiesInShootingZone)
+        {
+            float distance = Vector3.Distance(enemy.position, transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                ClosestEnemy = enemy;
+            }
+        }
+
+        return ClosestEnemy;
     }
 }
