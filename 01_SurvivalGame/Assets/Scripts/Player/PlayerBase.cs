@@ -10,10 +10,14 @@ public class PlayerBase : MonoBehaviour
     // 플레이어 기본 속도
     public float speed = 5.0f;
 
+    public Transform firePoint;
+
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
 
     bool isFlipped = false;
+
+    bool enemyInRange = false;
 
     PlayerInputAction action;
 
@@ -51,6 +55,7 @@ public class PlayerBase : MonoBehaviour
     private void Start()
     {
         StartCoroutine(GetClosestEnemyPosition());
+        StartCoroutine(OnFire());
     }
 
     private void Update()
@@ -128,6 +133,10 @@ public class PlayerBase : MonoBehaviour
         Speed = 0.0f;
     }
 
+    /// <summary>
+    /// 매 주기마다 가장 가까운 적의 위치를 갱신하는 코루틴
+    /// </summary>
+    /// <returns></returns>
     IEnumerator GetClosestEnemyPosition()
     {
         while (true)
@@ -136,13 +145,32 @@ public class PlayerBase : MonoBehaviour
 
             if(enemiesInShootingZone.Count > 0)
             {
+                enemyInRange = true;
+
                 nearestEnemy = FIndClosestEnemy();
 
                 Debug.Log($"Neareast Enemy : {nearestEnemy.name}");
+            } else
+            {
+                enemyInRange = false;
             }
         }
     }
 
+    IEnumerator OnFire()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            if (enemyInRange)
+                Fire();
+        }
+    }
+
+    /// <summary>
+    /// enemiesInShootingZone 내에서 가장 가까운 적을 찾는다
+    /// </summary>
+    /// <returns>가장 가까운 적의 Transform</returns>
     Transform FIndClosestEnemy()
     {
         Transform ClosestEnemy = null;
@@ -159,5 +187,11 @@ public class PlayerBase : MonoBehaviour
         }
 
         return ClosestEnemy;
+    }
+
+    void Fire()
+    {
+        Bullet bullet = Factory.Instance.GetBullet(firePoint.position, 0.0f);
+        bullet.transform.LookAt(nearestEnemy.position);
     }
 }
