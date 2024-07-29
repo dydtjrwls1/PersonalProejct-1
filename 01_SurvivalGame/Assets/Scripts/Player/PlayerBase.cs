@@ -154,7 +154,7 @@ public class PlayerBase : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
 
             // 사정거리 내부에 적이 있을 경우에만 실행
             if(enemiesInShootingZone.Count > 0)
@@ -205,7 +205,6 @@ public class PlayerBase : MonoBehaviour
     {
         Bullet bullet = Factory.Instance.GetBullet(firePoint.position);
         float bulletAngle = Vector3.SignedAngle(Vector3.up, nearestEnemy.position - firePoint.position, Vector3.forward);
-        Debug.Log(bulletAngle);
         bullet.transform.Rotate(bulletAngle * Vector3.forward);
     }
 
@@ -214,7 +213,7 @@ public class PlayerBase : MonoBehaviour
         if (enemyInRange)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawLine(nearestEnemy.position + Vector3.up, nearestEnemy.position + Vector3.down);
+            Gizmos.DrawCube(nearestEnemy.position, new Vector3(1, 1));
         }
 
     }
