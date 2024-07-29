@@ -22,7 +22,8 @@ public class Factory : SingleTon<Factory>
     {
         return zombie.GetObject(position, new Vector3(0, 0, angle));
     }
-    public Bullet GetBullet(Vector3? position = null, float angle = 0.0f)
+
+    public Bullet GetBullet(Vector3? position = null,float angle = 0.0f)
     {
         return bullet.GetObject(position, new Vector3(0, 0, angle));
     }
