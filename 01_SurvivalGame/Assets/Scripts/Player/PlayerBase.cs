@@ -127,7 +127,7 @@ public class PlayerBase : MonoBehaviour
         // 플레이어가 왼쪽으로 향하면 왼쪽을보고 오른쪽을 향하면 오른쪽을 본다.
         if ((direction.x < 0.0f && !isFlipped) || (direction.x > 0.0f && isFlipped))
         {
-            sr.flipX = !sr.flipX;
+             sr.flipX = !sr.flipX;
             isFlipped = !isFlipped;
             srWeapon.flipX = !srWeapon.flipX; // 무기 스프라이트 좌우 반전
             srWeapon.sortingOrder = sr.flipX ? 2 : 0; // 캐릭터가 오른쪽을 보면 캐릭터보다 아래에 그리고 왼쪽을 보면 위에 그린다
@@ -204,7 +204,8 @@ public class PlayerBase : MonoBehaviour
     void Fire()
     {
         Bullet bullet = Factory.Instance.GetBullet(firePoint.position);
-        float bulletAngle = Vector3.Angle(Vector3.up, nearestEnemy.position - firePoint.position);
+        float bulletAngle = Vector3.SignedAngle(Vector3.up, nearestEnemy.position - firePoint.position, Vector3.forward);
+        Debug.Log(bulletAngle);
         bullet.transform.Rotate(bulletAngle * Vector3.forward);
     }
 
