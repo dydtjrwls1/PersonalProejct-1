@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     PlayerBase player;
 
     // player 위치정보를 담는 변수
-    Vector3 playerPosition;
+    Vector3? playerPosition = null;
 
     private void Awake()
     {
@@ -50,4 +50,22 @@ public class EnemySpawner : MonoBehaviour
         }
         
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        if (playerPosition != null)
+        {
+            foreach (var point in spawnPoints)
+            {
+                Vector3 leftPoint = playerPosition.GetValueOrDefault() + new Vector3(point.minX, point.minY);
+                Vector3 rightPoint = playerPosition.GetValueOrDefault() + new Vector3(point.maxX, point.maxY);
+                Gizmos.DrawLine(leftPoint, rightPoint);
+            }
+        }
+        
+    }
+#endif
 }
+
