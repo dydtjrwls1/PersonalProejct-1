@@ -10,7 +10,13 @@ public class EnemyBase : RecycleObject
 
     public int maxHP = 2;
 
+    public int point = 10;
+
+    static ScoreText scoreText;
+
     int hp;
+
+
     public int HP
     {
         get { return hp; } 
@@ -38,6 +44,7 @@ public class EnemyBase : RecycleObject
         player = FindAnyObjectByType<PlayerBase>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        scoreText = FindAnyObjectByType<ScoreText>();
     }
 
     protected override void OnEnable()
@@ -72,6 +79,7 @@ public class EnemyBase : RecycleObject
     {
         isAlive = false;
         rb.simulated = false;
+        scoreText.AddScore(point);
         DIsableTimer(1.0f);
     }
 }
