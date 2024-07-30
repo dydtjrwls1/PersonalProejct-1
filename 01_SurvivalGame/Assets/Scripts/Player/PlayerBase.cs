@@ -33,6 +33,8 @@ public class PlayerBase : MonoBehaviour
     // 플레이어 스프라이트
     SpriteRenderer sr;
 
+    Rigidbody2D rb;
+
     // 가장 가까운 적의 Transform
     Transform nearestEnemy;
 
@@ -63,6 +65,7 @@ public class PlayerBase : MonoBehaviour
         action = new PlayerInputAction();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -71,9 +74,13 @@ public class PlayerBase : MonoBehaviour
         StartCoroutine(OnFire());
     }
 
+    private void FixedUpdate()
+    {
+        rb.MovePosition((Vector2)transform.position + Time.deltaTime * Speed * direction);
+    }
     private void Update()
     {
-        transform.Translate(Time.deltaTime * Speed * direction);
+        // transform.Translate(Time.deltaTime * Speed * direction);
     }
 
     private void OnEnable()
