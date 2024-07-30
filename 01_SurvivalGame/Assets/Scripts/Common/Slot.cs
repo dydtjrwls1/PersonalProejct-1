@@ -16,7 +16,7 @@ public class Slot : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         background.SetTriggerPosition(collision.transform.position, transform.position);
-        background.Test();
+        background.MoveSlots();
     }
 
     public void MoveRight()

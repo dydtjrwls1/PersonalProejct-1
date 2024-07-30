@@ -14,14 +14,12 @@ public class Background : MonoBehaviour
 
     const float LENGTH = 28.0f;
 
-    byte test = 0b_0000;
-
     private void Awake()
     {
         slots = GetComponentsInChildren<Slot>();
     }
 
-    public void Test()
+    public void MoveSlots()
     {
         float diffX = Mathf.Abs(exitPos.x - triggeredSlotPos.x);
         float diffY = Mathf.Abs(exitPos.y - triggeredSlotPos.y);
