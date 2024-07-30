@@ -1,43 +1,87 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    Transform[] Slots;
+    Vector3 triggeredSlotPos;
 
-    Transform[] TopSlots = new Transform[3];
-    Transform[] BottomSlots = new Transform[3];
-    Transform[] LeftSlots = new Transform[3];
-    Transform[] RightSlots = new Transform[3];
+    Vector3 exitPos;
+
+    Slot[] slots;
+
+    const float LENGTH = 28.0f;
+
+    byte test = 0b_0000;
 
     private void Awake()
     {
-        Slots = new Transform[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
+        slots = GetComponentsInChildren<Slot>();
+    }
+
+    public void Test()
+    {
+        float diffX = Mathf.Abs(exitPos.x - triggeredSlotPos.x);
+        float diffY = Mathf.Abs(exitPos.y - triggeredSlotPos.y);
+
+        if (diffX > LENGTH / 2.0f)
         {
-            Slots[i] = transform.GetChild(i);
-        }
+            if (exitPos.x > triggeredSlotPos.x)
+            {
+                foreach (var slot in slots)
+                {
+                    if (slot.transform.position.x < triggeredSlotPos.x)
+                    {
+                        slot.MoveRight();
+                    }
+                }
+            }
+            else
+            {
+                foreach (var slot in slots)
+                {
+                    if (slot.transform.position.x > triggeredSlotPos.x)
+                    {
+                        slot.MoveLeft();
+                    }
+                }
+            }
+        } 
 
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void BatchSlots()
-    {
-        foreach (var slot in Slots)
+        if (diffY > LENGTH / 2.0f)
         {
-
+            if (exitPos.y > triggeredSlotPos.y)
+            {
+                foreach (var slot in slots)
+                {
+                    if (slot.transform.position.y < triggeredSlotPos.y)
+                    {
+                        slot.MoveTop();
+                    }
+                }
+            } else
+            {
+                foreach (var slot in slots)
+                {
+                    if (slot.transform.position.y > triggeredSlotPos.y)
+                    {
+                        slot.MoveBottom();
+                    }
+                }
+            }
         }
+    }
+
+    /// <summary>
+    /// 현재 Exit 가 발생한 슬롯의 Position 과 탈출한 플레이어의 위치를 받는 함수
+    /// </summary>
+    /// <param name="collisionPos">collision 이 탈출한 위치좌표</param>
+    /// <param name="slotPosition">exit 가 발생한 슬롯의 위치좌표</param>
+    public void SetTriggerPosition(Vector3 collisionPos, Vector3 slotPosition)
+    {
+        exitPos = collisionPos;
+        triggeredSlotPos = slotPosition;  
     }
 }

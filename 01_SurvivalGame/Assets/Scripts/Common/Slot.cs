@@ -4,11 +4,38 @@ using UnityEngine;
 
 public class Slot : MonoBehaviour
 {
-    Vector2 collisionPoint;
+    const float LENGTH = 28.0f;
+
+    Background background;
+
+    private void Awake()
+    {
+        background = GetComponentInParent<Background>();
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) { }
-            
+        background.SetTriggerPosition(collision.transform.position, transform.position);
+        background.Test();
+    }
+
+    public void MoveRight()
+    {
+        transform.position += 3.0f * LENGTH * Vector3.right;
+    }
+
+    public void MoveLeft()
+    {
+        transform.position += 3.0f * LENGTH * Vector3.left;
+    }
+
+    public void MoveTop()
+    {
+        transform.position += 3.0f * LENGTH * Vector3.up;
+    }
+
+    public void MoveBottom()
+    {
+        transform.position += 3.0f * LENGTH * Vector3.down;
     }
 }
