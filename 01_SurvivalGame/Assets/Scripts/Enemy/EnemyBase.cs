@@ -26,7 +26,7 @@ public class EnemyBase : RecycleObject
 
     readonly int DeadParameter_Hash = Animator.StringToHash("Dead");
 
-    Transform player;
+    protected Transform player;
 
     SpriteRenderer sr;
 
@@ -73,9 +73,10 @@ public class EnemyBase : RecycleObject
     /// <summary>
     /// 적의 물리적인 움직임
     /// </summary>
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         rb.MovePosition(transform.position + Time.deltaTime * speed * direction);
+        Move();
     }
 
     // 모든 적의 기본적인 움직임 (플레이어를 추적한다)
@@ -84,7 +85,7 @@ public class EnemyBase : RecycleObject
         Vector3 playerPosition = player.position;
         direction = (playerPosition - transform.position).normalized;
         sr.flipX = isAlive ? (transform.position.x > playerPosition.x) : sr.flipX; // 적이 플레이어 보다 오른쪽에 있으면 좌우반전 (살아 있을 때만)
-        Move();
+        
     }
 
     /// <summary>
@@ -101,11 +102,12 @@ public class EnemyBase : RecycleObject
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    /// <summary>
-    /// 추가적인 움직임을 구현하기 위한 함수
-    /// </summary>
-    protected virtual void Move() { }
+   
+    protected virtual void Move()
+    {
+
+    }
+
     
     protected virtual void Die()
     {

@@ -95,11 +95,11 @@ GameObject:
   - component: {fileID: 5059541758951322335}
   - component: {fileID: 5363207023894506272}
   - component: {fileID: 1298787895354309280}
-  - component: {fileID: -3634626554247729786}
   - component: {fileID: 6450939893712794846}
   - component: {fileID: -6602949286272384579}
+  - component: {fileID: -3594076704712736819}
   m_Layer: 7
-  m_Name: Zombie
+  m_Name: StrongZombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: -1887223425
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 613658156, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  m_Sprite: {fileID: -493647738, guid: 3bcb7877229a5334da528f2f0872b5c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -183,7 +183,7 @@ Animator:
   m_GameObject: {fileID: 1747616448017771943}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: db73ebcef3069b644bf06e078a8ccf24, type: 2}
+  m_Controller: {fileID: 9100000, guid: 265e9c0ccf65a5c469a69791681faf6e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -194,21 +194,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-3634626554247729786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1747616448017771943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85b329e36d49e8948a5c28d82cf13eb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  maxHP: 3
-  point: 10
 --- !u!70 &6450939893712794846
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -271,3 +256,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-3594076704712736819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747616448017771943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a8d14c55e8f2447ad95d52b1d85890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  maxHP: 10
+  point: 20

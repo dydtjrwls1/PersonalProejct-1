@@ -28,6 +28,8 @@ public class PlayerBase : MonoBehaviour
     // 플레이어 사정거리 내에 적이 있는지 여부
     bool enemyInRange = false;
 
+    int exp = 0;
+
     PlayerInputAction action;
 
     // 플레이어 애니메이션 컨트롤러
@@ -55,6 +57,15 @@ public class PlayerBase : MonoBehaviour
         {
             currentSpeed = value;
             animator.SetFloat(SpeedParameter_Hash, currentSpeed);
+        }
+    }
+
+    public int Exp
+    {
+        get => exp;
+        set
+        {
+            exp = value;
         }
     }
 
@@ -227,4 +238,5 @@ public class PlayerBase : MonoBehaviour
         }
 
     }
+
 }
