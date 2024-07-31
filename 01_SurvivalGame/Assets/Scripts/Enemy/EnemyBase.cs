@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class EnemyBase : RecycleObject
 {
     [Header("적 기본 정보")]
@@ -14,37 +16,51 @@ public class EnemyBase : RecycleObject
 
     static ScoreText scoreText;
 
-    int hp;
+    protected Animator animator;
 
-
-    public int HP
-    {
-        get { return hp; } 
-        set 
-        {
-            hp = value;
-            if(hp < 1)
-            {
-                Die();
-            }
-        }
-    }
     protected Rigidbody2D rb;
 
-    PlayerBase player;
+    protected bool isAlive = true;
+
+    readonly int HitParameter_Hash = Animator.StringToHash("Hit");
+
+    readonly int DeadParameter_Hash = Animator.StringToHash("Dead");
+
+    Transform player;
 
     SpriteRenderer sr;
 
     Vector3 direction;
 
-    bool isAlive = true;
+    int hp;
+
+    public int HP
+    {
+        get { return hp; }
+        set
+        {
+            hp = value;
+
+            // 체력이 0 이하면 Die 실행 그 외엔 Hit 피격 애니메이션 실행
+            if (hp < 1)
+            {
+                Die();
+            } else
+            {
+                animator.SetTrigger(HitParameter_Hash);
+            }
+
+
+        }
+    }
 
     protected virtual void Awake()
     {
-        player = FindAnyObjectByType<PlayerBase>();
+        player = GameManager.Instance.Player.transform;
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         scoreText = FindAnyObjectByType<ScoreText>();
+        animator = GetComponent<Animator>();
     }
 
     protected override void OnEnable()
@@ -53,19 +69,28 @@ public class EnemyBase : RecycleObject
         isAlive = true;
         hp = maxHP;
     }
+
+    /// <summary>
+    /// 적의 물리적인 움직임
+    /// </summary>
     private void FixedUpdate()
     {
-        rb.MovePosition((Vector2)transform.position + Time.deltaTime * speed * (Vector2)direction);
+        rb.MovePosition(transform.position + Time.deltaTime * speed * direction);
     }
 
     // 모든 적의 기본적인 움직임 (플레이어를 추적한다)
-    protected virtual void Update()
+    private void Update()
     {
-        Vector3 playerPosition = player.transform.position;
+        Vector3 playerPosition = player.position;
         direction = (playerPosition - transform.position).normalized;
-        sr.flipX = isAlive ? (transform.position.x > player.transform.position.x) : sr.flipX; // 적이 플레이어 보다 오른쪽에 있으면 좌우반전 (살아 있을 때만)
+        sr.flipX = isAlive ? (transform.position.x > playerPosition.x) : sr.flipX; // 적이 플레이어 보다 오른쪽에 있으면 좌우반전 (살아 있을 때만)
+        Move();
     }
 
+    /// <summary>
+    /// 피격 시 체력이 깎이고 충돌 오브젝트 비활성화
+    /// </summary>
+    /// <param name="collision"></param>
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
@@ -74,12 +99,20 @@ public class EnemyBase : RecycleObject
             collision.gameObject.SetActive(false);
         }
     }
-
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    /// 추가적인 움직임을 구현하기 위한 함수
+    /// </summary>
+    protected virtual void Move() { }
+    
     protected virtual void Die()
     {
         isAlive = false;
         rb.simulated = false;
         scoreText.AddScore(point);
+        animator.SetTrigger(DeadParameter_Hash);
         DIsableTimer(1.0f);
     }
 }

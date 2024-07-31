@@ -16,6 +16,9 @@ public class PlayerBase : MonoBehaviour
     // 무기 스프라이트
     public SpriteRenderer srWeapon;
 
+    // 공격 간격
+    public float fireInterval = 0.5f;
+
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
 
@@ -179,7 +182,7 @@ public class PlayerBase : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(fireInterval);
             // 사정거리 내부에 적이 있을경우에만 사격
             if (enemyInRange)
                 Fire();
