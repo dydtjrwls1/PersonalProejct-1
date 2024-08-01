@@ -98,15 +98,24 @@ public class EnemyBase : RecycleObject
     /// <param name="collision"></param>
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("Bullet"))
         {
             HP -= GameManager.Instance.Player.Power;
             collision.gameObject.SetActive(false);
         }
+        else if (collision.gameObject.CompareTag("Weapon"))
+        {
+            HP -= GameManager.Instance.Player.Power;
+        }
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
+
     protected virtual void Move()
     {
 

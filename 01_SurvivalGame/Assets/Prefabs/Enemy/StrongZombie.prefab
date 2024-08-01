@@ -269,6 +269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  maxHP: 30
+  maxHP: 1
   point: 100
   exp: 10

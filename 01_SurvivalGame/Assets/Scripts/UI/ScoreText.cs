@@ -42,7 +42,7 @@ public class ScoreText : MonoBehaviour
         // 실제 점수가 도달해야할 점수가 될때까지
         if (Score < targetScore)
         {
-            currentScore += Time.deltaTime * raiseSpeed;
+            currentScore += (targetScore - Score) * Time.deltaTime * raiseSpeed;
             currentScore = Mathf.Min(currentScore, targetScore); // 타겟 점수보다 높아질 경우를 방지한다.
             Score = Mathf.RoundToInt(currentScore);
         }
