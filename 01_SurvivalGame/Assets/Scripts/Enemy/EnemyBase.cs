@@ -8,49 +8,53 @@ using UnityEngine;
 public class EnemyBase : RecycleObject
 {
     [Header("적 기본 정보")]
+    // 기본 이동속도
     public float speed = 5.0f;
 
+    // 총 체력
     public int maxHP = 2;
 
+    // 죽었을 때 오르는 점수
     public int point = 10;
 
-    static ScoreText scoreText;
+    // 죽었을 때 나오는 경험치 양
+    public int exp = 1;
 
     protected Animator animator;
 
     protected Rigidbody2D rb;
 
+    // 살아있으면 true
     protected bool isAlive = true;
 
-    readonly int HitParameter_Hash = Animator.StringToHash("Hit");
+    // 플레이어 트랜스폼
+    static protected Transform player;
 
+    // 애니메이션 파라미터용 해시값
+    readonly int HitParameter_Hash = Animator.StringToHash("Hit");
     readonly int DeadParameter_Hash = Animator.StringToHash("Dead");
 
-    protected Transform player;
+    ScoreText scoreText;
 
     SpriteRenderer sr;
 
+    // 현재 나아가는 방향
     Vector3 direction;
 
+    // 현재 체력
     int hp;
 
     public int HP
     {
-        get { return hp; }
+        get => hp;
         set
         {
             hp = value;
-
             // 체력이 0 이하면 Die 실행 그 외엔 Hit 피격 애니메이션 실행
             if (hp < 1)
-            {
                 Die();
-            } else
-            {
+            else
                 animator.SetTrigger(HitParameter_Hash);
-            }
-
-
         }
     }
 
@@ -59,7 +63,7 @@ public class EnemyBase : RecycleObject
         player = GameManager.Instance.Player.transform;
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        scoreText = FindAnyObjectByType<ScoreText>();
+        scoreText = GameManager.Instance.ScoreText;
         animator = GetComponent<Animator>();
     }
 
@@ -96,7 +100,7 @@ public class EnemyBase : RecycleObject
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            HP -= 1;
+            HP -= GameManager.Instance.Player.Power;
             collision.gameObject.SetActive(false);
         }
     }
@@ -115,7 +119,8 @@ public class EnemyBase : RecycleObject
         rb.simulated = false;
         scoreText.AddScore(point);
         animator.SetTrigger(DeadParameter_Hash);
-        Factory.Instance.GetCoin(transform.position);
+        Coin coin = Factory.Instance.GetCoin(transform.position);
+        coin.ExpPoint = exp;
         DIsableTimer(1.0f);
     }
 }

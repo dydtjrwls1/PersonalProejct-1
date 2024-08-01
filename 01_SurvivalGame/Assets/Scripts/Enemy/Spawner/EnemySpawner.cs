@@ -5,8 +5,20 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Spawn 간격
-    public float spawnInterval = 1.0f;
+    public enum enemyType
+    {
+        Zombie = 0,
+        StrongZombie
+    }
+
+    [Serializable]
+    public struct spawnData
+    {
+        public float spawnInterval;
+        public enemyType type; 
+    }
+
+    public spawnData[] spawnDatas;
 
     // 이번에 Spawn 할 spawnPoint 의 index
     int pointIndex;
@@ -21,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
     PlayerBase player;
 
     // player 위치정보를 담는 변수
-    Vector3? playerPosition = null;
+    Vector3 playerPosition;
 
     private void Awake()
     {
@@ -31,7 +43,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Spawn());
+        foreach (var data in spawnDatas)
+        {
+            StartCoroutine(SpawnStart(data));
+        }
     }
 
 
@@ -39,29 +54,42 @@ public class EnemySpawner : MonoBehaviour
     /// 매 Spawn 마다 랜덤한 spawnPoint 들 중 한곳에서 랜덤한 위치 반환 후 플레이어 위치에서 더한만큼에서 spawn 한다.
     /// </summary>
     /// <returns></returns>
-    IEnumerator Spawn()
+    IEnumerator SpawnStart(spawnData data)
     {
         while (true)
         {
-            yield return new WaitForSeconds(spawnInterval);
-            playerPosition = player.transform.position; // 현재 player의 위치
-            pointIndex = Random.Range(0, spawnPoints.Length);   // spawn 할 spawnPoint 정하기
-            spawnPosition = spawnPoints[pointIndex].GetSpawnPoint();    // spawnPoint 에서 랜덤한 위치 받기
-            Factory.Instance.GetZombie(playerPosition + spawnPosition); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
+            yield return new WaitForSeconds(data.spawnInterval);
+            switch (data.type)
+            {
+                case enemyType.Zombie:
+                    Factory.Instance.GetZombie(GetSpawnPosition()); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
+                    break;
+                case enemyType.StrongZombie:
+                    Factory.Instance.GetStrongZombie(GetSpawnPosition()); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
+                    break;
+            }
         }
-        
+    }
+
+    Vector3 GetSpawnPosition()
+    {
+        playerPosition = player.transform.position; // 현재 player의 위치
+        pointIndex = Random.Range(0, spawnPoints.Length);   // spawn 할 spawnPoint 정하기
+        spawnPosition = spawnPoints[pointIndex].GetSpawnPoint();    // spawnPoint 에서 랜덤한 위치 받기
+        return playerPosition + spawnPosition;
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
+        
         Gizmos.color = Color.green;
-        if (playerPosition != null)
+        if (Application.isPlaying)
         {
             foreach (var point in spawnPoints)
             {
-                Vector3 leftPoint = playerPosition.GetValueOrDefault() + new Vector3(point.minX, point.minY);
-                Vector3 rightPoint = playerPosition.GetValueOrDefault() + new Vector3(point.maxX, point.maxY);
+                Vector3 leftPoint = playerPosition + new Vector3(point.minX, point.minY);
+                Vector3 rightPoint = playerPosition + new Vector3(point.maxX, point.maxY);
                 Gizmos.DrawLine(leftPoint, rightPoint);
             }
         }

@@ -37,6 +37,8 @@ public class PlayerBase : MonoBehaviour
     // 레벨
     int level = 1;
 
+    int power = 1;
+
     PlayerInputAction action;
 
     // 플레이어 애니메이션 컨트롤러
@@ -80,6 +82,7 @@ public class PlayerBase : MonoBehaviour
                 exp = exp - maxExp; // 남은 경험치 계산
                 maxExp *= 2;
                 Level += 1;
+                Power += 1;
             }
         }
     }
@@ -93,6 +96,16 @@ public class PlayerBase : MonoBehaviour
             level = value;
         }
     }
+
+    public int Power
+    {
+        get => power;
+        private set
+        {
+            power = value;
+        }       
+    }
+
     // 애니메이션 제어를 위한 Speed 파라미터의 해쉬번호
     readonly int SpeedParameter_Hash = Animator.StringToHash("Speed");
 

@@ -8,6 +8,12 @@ public class Coin : RecycleObject
 
     int expPoint = 1;
 
+    public int ExpPoint
+    {
+        get => expPoint;
+        set { expPoint = value; }
+    }
+
     private void Awake()
     {
         player = GameManager.Instance.Player;

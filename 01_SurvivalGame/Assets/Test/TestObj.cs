@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class TestObj : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    public Transform target;
+
+    float elapsedTime;
+
+    private void Update()
     {
-        Debug.Log("enter!");
+        elapsedTime += Time.deltaTime;
+        if(elapsedTime > 5.0f)
+        {
+            Factory.Instance.GetStrongZombie(target.transform.position);
+            elapsedTime = 0f;
+        }
     }
 }
