@@ -16,7 +16,6 @@ public class GameManager : SingleTon<GameManager>
                 player = FindAnyObjectByType<PlayerBase>();
             return player;
         }
-        
     }
 
     public ScoreText ScoreText
