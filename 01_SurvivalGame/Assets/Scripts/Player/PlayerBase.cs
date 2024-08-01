@@ -28,7 +28,14 @@ public class PlayerBase : MonoBehaviour
     // 플레이어 사정거리 내에 적이 있는지 여부
     bool enemyInRange = false;
 
+    // 현재경험치
     int exp = 0;
+
+    // 총 경험치
+    int maxExp = 5;
+
+    // 레벨
+    int level = 1;
 
     PlayerInputAction action;
 
@@ -60,15 +67,32 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    // 경험치 프로퍼티
     public int Exp
     {
         get => exp;
         set
         {
             exp = value;
+            // 경험치가 max 경험치 초과 시 레벨업
+            if (exp > maxExp - 1)
+            {
+                exp = exp - maxExp; // 남은 경험치 계산
+                maxExp *= 2;
+                Level += 1;
+            }
         }
     }
 
+    // 레벨 프로퍼티
+    public int Level
+    {
+        get => level;
+        set
+        {
+            level = value;
+        }
+    }
     // 애니메이션 제어를 위한 Speed 파라미터의 해쉬번호
     readonly int SpeedParameter_Hash = Animator.StringToHash("Speed");
 

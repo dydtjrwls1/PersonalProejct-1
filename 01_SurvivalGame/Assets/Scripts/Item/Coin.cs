@@ -20,5 +20,7 @@ public class Coin : RecycleObject
 
         player.Exp += expPoint;
         Debug.Log(player.Exp);
+
+        gameObject.SetActive(false);
     }
 }

@@ -115,6 +115,7 @@ public class EnemyBase : RecycleObject
         rb.simulated = false;
         scoreText.AddScore(point);
         animator.SetTrigger(DeadParameter_Hash);
+        Factory.Instance.GetCoin(transform.position);
         DIsableTimer(1.0f);
     }
 }
