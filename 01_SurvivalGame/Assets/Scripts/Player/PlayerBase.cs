@@ -28,6 +28,12 @@ public class PlayerBase : MonoBehaviour
     // 플레이어 사정거리 내에 적이 있는지 여부
     bool enemyInRange = false;
 
+    // 무적 레이어 키 값
+     int ImmuneLayerNum;
+
+    // 플레이어 레이어 키 값
+    int PlayerLayerNum;
+
     // 현재경험치
     int exp = 0;
 
@@ -37,7 +43,16 @@ public class PlayerBase : MonoBehaviour
     // 레벨
     int level = 1;
 
+    // 공격력
     int power = 1;
+
+    // 체력
+    int life = 3;
+
+    // 초기 체력
+    const int StartLife = 3;
+
+    bool IsAlive => life > 0;
 
     PlayerInputAction action;
 
@@ -57,6 +72,28 @@ public class PlayerBase : MonoBehaviour
 
     // 플레이어 진행 방향
     Vector2 direction;
+
+    // 스프라이트 원본 색
+    Color originColor;
+
+    // 피격시 나타날 스프라이트 색
+    Color hitColor;
+
+    public int Life
+    {
+        get => life;
+        set
+        {
+            if(life != value)
+            {
+                life = value;
+                if (IsAlive)
+                    OnHit();
+                else
+                    OnDie();
+            }
+        }
+    }
 
     // 속도 파라미터
     public float Speed
@@ -117,6 +154,12 @@ public class PlayerBase : MonoBehaviour
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+
+        originColor = sr.color;
+        hitColor = sr.color + new Color(0.5f, 0, 0, -0.8f);
+
+        ImmuneLayerNum = LayerMask.NameToLayer("Immune");
+        PlayerLayerNum = LayerMask.NameToLayer("Player");
     }
 
     private void Start()
@@ -154,10 +197,15 @@ public class PlayerBase : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<EnemyBase>() != null)
-        {
+        if (collision.gameObject.CompareTag("Enemy"))
             enemiesInShootingZone.Add(collision.gameObject.transform);
+        else if (collision.gameObject.CompareTag("Coin"))
+        {
+            Coin coin = collision.gameObject.GetComponent<Coin>();
+            Exp += coin.ExpPoint;
+            collision.gameObject.SetActive(false);
         }
+            
         
     }
 
@@ -167,10 +215,14 @@ public class PlayerBase : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<EnemyBase>() != null)
-        {
+        if (collision.gameObject.CompareTag("Enemy"))
             enemiesInShootingZone.Remove(collision.gameObject.transform);
-        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+            Life--;
     }
 
     /// <summary>
@@ -276,4 +328,28 @@ public class PlayerBase : MonoBehaviour
 
     }
 
+    void OnHit()
+    {
+        StartCoroutine(Hit());
+    }
+
+    void OnDie()
+    {
+
+    }
+
+    IEnumerator Hit()
+    {
+        gameObject.layer = ImmuneLayerNum;
+
+        for(int i = 0; i < 3; i++)
+        {
+            sr.color = hitColor;
+            yield return new WaitForSeconds(0.2f);
+            sr.color = originColor;
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        gameObject.layer = PlayerLayerNum;
+    }
 }

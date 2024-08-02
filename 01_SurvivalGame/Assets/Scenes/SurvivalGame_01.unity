@@ -1283,6 +1283,10 @@ PrefabInstance:
       propertyPath: fireInterval
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2944137258856233184, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3742308673453136939, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
