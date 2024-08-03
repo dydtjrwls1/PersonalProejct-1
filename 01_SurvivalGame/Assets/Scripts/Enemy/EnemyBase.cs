@@ -72,6 +72,7 @@ public class EnemyBase : RecycleObject
         base.OnEnable();
         isAlive = true;
         hp = maxHP;
+        rb.simulated = true;
     }
 
     /// <summary>

@@ -1343,6 +1343,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1004841130008064418, guid: c5272e4be846de54e8a4694053c2d698, type: 3}
+      propertyPath: poolSIze
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3562943204635448738, guid: c5272e4be846de54e8a4694053c2d698, type: 3}
       propertyPath: m_Name
       value: Factory

@@ -124,10 +124,10 @@ public class PlayerBase : MonoBehaviour
                 maxExp *= 2;
                 Level += 1;
                 Power += 1;
-                levelUpAction(Level);
+                levelUpAction(Level); // Level UI 에 레벨업 이벤트 발생 알림
             }
 
-            expUpAction(exp, maxExp);
+            expUpAction(exp, maxExp); // Exp UI 에 경험치 상승 이벤트 발생 알림
         }
     }
 
@@ -141,6 +141,7 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    // 공격력 프로퍼티
     public int Power
     {
         get => power;
@@ -282,6 +283,8 @@ public class PlayerBase : MonoBehaviour
             {
                 enemyInRange = false;
             }
+
+            Debug.Log(enemiesInShootingZone.Count);
         }
     }
 
@@ -307,6 +310,8 @@ public class PlayerBase : MonoBehaviour
 
         foreach (var enemy in enemiesInShootingZone)
         {
+            if(!enemy.gameObject.activeSelf)
+                enemiesInShootingZone.Remove(enemy);
             float distance = Vector3.Distance(enemy.position, transform.position);
             if (distance < minDistance)
             {
