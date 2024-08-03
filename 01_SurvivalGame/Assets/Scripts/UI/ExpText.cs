@@ -17,7 +17,7 @@ public class ExpText : MonoBehaviour
         set
         {
             exp = value;
-            expText.text = $"{exp} / {maxExp}";
+            expText.text = $"Exp. {exp} / {maxExp}";
         }
     }
 
