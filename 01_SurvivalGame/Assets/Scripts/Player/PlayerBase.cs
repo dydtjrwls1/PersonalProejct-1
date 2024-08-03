@@ -1,8 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
@@ -18,6 +16,12 @@ public class PlayerBase : MonoBehaviour
 
     // 공격 간격
     public float fireInterval = 0.5f;
+
+    // 액션 이벤트 델리게이트 함수
+    public Action<int> levelUpAction = null;
+
+    // 경험치 상승 이벤트 델리게이트 함수
+    public Action<int, int> expUpAction = null;
 
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
@@ -120,7 +124,10 @@ public class PlayerBase : MonoBehaviour
                 maxExp *= 2;
                 Level += 1;
                 Power += 1;
+                levelUpAction(Level);
             }
+
+            expUpAction(exp, maxExp);
         }
     }
 
