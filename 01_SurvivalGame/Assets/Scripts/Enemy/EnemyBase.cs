@@ -129,7 +129,7 @@ public class EnemyBase : RecycleObject
         rb.simulated = false;
         scoreText.AddScore(point);
         animator.SetTrigger(DeadParameter_Hash);
-        Coin coin = Factory.Instance.GetCoin(transform.position);
+        Coin coin = Factory.Instance.GetCoin(transform.position, exp);
         coin.ExpPoint = exp;
         DIsableTimer(1.0f);
     }

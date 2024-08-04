@@ -8,6 +8,8 @@ public class GameManager : SingleTon<GameManager>
 
     ScoreText scoreText;
 
+    public int wave;
+
     public PlayerBase Player
     {
         get

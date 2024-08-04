@@ -43,8 +43,10 @@ public class Factory : SingleTon<Factory>
         return bullet.GetObject(position, new Vector3(0, 0, angle));
     }
 
-    public Coin GetCoin(Vector3? position = null)
+    public Coin GetCoin(Vector3? position = null, int point = 1)
     {
-        return coin.GetObject(position);
+        Coin currentCoin = coin.GetObject(position);
+        currentCoin.ExpPoint = point;
+        return currentCoin;
     }
 }

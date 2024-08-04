@@ -280,11 +280,7 @@ public class PlayerBase : MonoBehaviour
                 enemyInRange = true;
                 nearestEnemy = FIndClosestEnemy();
             } else
-            {
                 enemyInRange = false;
-            }
-
-            Debug.Log(enemiesInShootingZone.Count);
         }
     }
 

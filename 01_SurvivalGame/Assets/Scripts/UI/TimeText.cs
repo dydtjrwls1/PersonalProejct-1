@@ -27,6 +27,7 @@ public class TimeText : MonoBehaviour
             minutes += 1;
             elapsedTime = 0;
             seconds = 0;
+            GameManager.Instance.wave += 1;
         }
 
         timeText.text = $"{minutes:D2} : {seconds:D2}";
