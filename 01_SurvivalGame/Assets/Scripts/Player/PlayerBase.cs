@@ -62,6 +62,8 @@ public class PlayerBase : MonoBehaviour
 
     PlayerInputAction action;
 
+    Collider2D coll;
+
     // 플레이어 애니메이션 컨트롤러
     Animator animator;
     
@@ -165,6 +167,7 @@ public class PlayerBase : MonoBehaviour
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collider2D>();
 
         originColor = sr.color;
         hitColor = sr.color + new Color(0.5f, 0, 0, -0.8f);
@@ -348,21 +351,26 @@ public class PlayerBase : MonoBehaviour
 
     void OnDie()
     {
+        action.Player.Disable();
 
+        coll.enabled = false;
     }
 
     IEnumerator Hit()
     {
+        float elapsedTime = 0.0f;
+
         gameObject.layer = ImmuneLayerNum;
 
-        for(int i = 0; i < 3; i++)
+        while (elapsedTime < 1.0f)
         {
-            sr.color = hitColor;
-            yield return new WaitForSeconds(0.2f);
-            sr.color = originColor;
-            yield return new WaitForSeconds(0.2f);
+            elapsedTime += Time.deltaTime;
+            sr.color = new Color(1, 1, 1, (Mathf.Cos(elapsedTime * 30.0f) + 1.0f) * 0.5f);
+
+            yield return null;
         }
 
+        sr.color = Color.white;
         gameObject.layer = PlayerLayerNum;
     }
 }

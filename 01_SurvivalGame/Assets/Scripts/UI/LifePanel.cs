@@ -16,7 +16,7 @@ public class LifePanel : MonoBehaviour
         for(int i = 0; i < lifeImages.Length; i++)
         {
             Transform child = transform.GetChild(i);
-            lifeImages[i] = transform.GetComponent<Image>();
+            lifeImages[i] = child.GetComponent<Image>();
         }
     }
 
