@@ -8,7 +8,8 @@ public class EnemySpawner : MonoBehaviour
     public enum enemyType
     {
         Zombie = 0,
-        StrongZombie
+        StrongZombie,
+        Skeleton
     }
 
     [Serializable]
@@ -59,14 +60,18 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             int currentWave = GameManager.Instance.wave;
+            Vector3 spawnPos = GetSpawnPosition();
             yield return new WaitForSeconds(Mathf.Max(data.spawnInterval - currentWave, 1.0f));
             switch (data.type)
             {
                 case enemyType.Zombie:
-                    Factory.Instance.GetZombie(GetSpawnPosition()); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
+                    Factory.Instance.GetZombie(spawnPos); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
                     break;
                 case enemyType.StrongZombie:
-                    Factory.Instance.GetStrongZombie(GetSpawnPosition()); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
+                    Factory.Instance.GetStrongZombie(spawnPos); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
+                    break;
+                case enemyType.Skeleton:
+                    Factory.Instance.GetSkeleton(spawnPos);
                     break;
             }
         }

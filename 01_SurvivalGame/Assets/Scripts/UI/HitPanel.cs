@@ -21,9 +21,10 @@ public class HitPanel : MonoBehaviour
         player.lifeChange += HitEffect;
     }
 
-    void HitEffect(int _)
+    void HitEffect(int life)
     {
-        StartCoroutine(HitEffectAction());
+        if (life > 0)
+            StartCoroutine(HitEffectAction());
     }
 
     IEnumerator HitEffectAction()
@@ -34,7 +35,7 @@ public class HitPanel : MonoBehaviour
 
         image.color = new Color(1, 0, 0, 0.2f);
 
-        while (elapsedTime < 1.0f)
+        while (image.color.a > 0.001f)
         {
             elapsedTime += Time.deltaTime;
 

@@ -6,6 +6,7 @@ public class Factory : SingleTon<Factory>
 {
     StrongZombieObjectPool strongZombie;
     ZombieObjectPool zombie;
+    SkeletonObjectPool skeleton;
     BulletObjectPool bullet;
     CoinObjectPool coin;
 
@@ -18,6 +19,10 @@ public class Factory : SingleTon<Factory>
         zombie = GetComponentInChildren<ZombieObjectPool>();
         if(zombie != null)
             zombie.Initialize();
+
+        skeleton = GetComponentInChildren<SkeletonObjectPool>();
+        if (skeleton != null)
+            skeleton.Initialize();
 
         bullet = GetComponentInChildren<BulletObjectPool>();
         if (bullet != null)
@@ -36,6 +41,11 @@ public class Factory : SingleTon<Factory>
     public Zombie GetZombie(Vector3? position = null, float angle = 0.0f)
     {
         return zombie.GetObject(position, new Vector3(0, 0, angle));
+    }
+
+    public Skeleton GetSkeleton(Vector3? position = null, float angle = 0.0f)
+    {
+        return skeleton.GetObject(position, new Vector3(0, 0, angle));
     }
 
     public Bullet GetBullet(Vector3? position = null,float angle = 0.0f)
