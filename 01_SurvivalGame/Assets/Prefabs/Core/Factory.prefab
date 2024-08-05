@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1747616448017771943, guid: 32bed44a2dbf83b46b7fa50d6fb9f84c, type: 3}
-  poolSIze: 64
+  poolSIze: 4
 --- !u!1 &3562943204635448738
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,6 +79,7 @@ Transform:
   - {fileID: 5664483435896817574}
   - {fileID: 5869183993426211859}
   - {fileID: 4495787660000552610}
+  - {fileID: 5312677849669663832}
   - {fileID: 5676715571442283244}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -139,6 +140,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1350507998087341341, guid: afd0dee3e497eb94a9b1f02d9ef10b12, type: 3}
+  poolSIze: 64
+--- !u!1 &6508123884531024493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5312677849669663832}
+  - component: {fileID: 1523109568730559158}
+  m_Layer: 0
+  m_Name: SkeletonObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5312677849669663832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508123884531024493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6939097213245136688}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1523109568730559158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508123884531024493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60918e267b20cc44fbc54ad7b0c19e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4311790103663227126, guid: bb87b3fa4019d5745a01b4bbfc451fbd, type: 3}
   poolSIze: 64
 --- !u!1 &7222045959823986781
 GameObject:
