@@ -23,6 +23,8 @@ public class PlayerBase : MonoBehaviour
     // 경험치 상승 이벤트 델리게이트 함수
     public Action<int, int> expUpAction = null;
 
+    public Action<int> lifeChange = null;
+
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
 
@@ -96,6 +98,7 @@ public class PlayerBase : MonoBehaviour
                 else
                     OnDie();
             }
+            lifeChange?.Invoke(life);
         }
     }
 
@@ -168,6 +171,8 @@ public class PlayerBase : MonoBehaviour
 
         ImmuneLayerNum = LayerMask.NameToLayer("Immune");
         PlayerLayerNum = LayerMask.NameToLayer("Player");
+
+        Life = StartLife;
     }
 
     private void Start()
