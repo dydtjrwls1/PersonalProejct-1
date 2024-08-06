@@ -4,15 +4,65 @@ using UnityEngine;
 
 public class TestBase : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    PlayerInputAction action;
+
+    PlayerBase player;
+
+    void Awake()
     {
-        
+        // 필요한 컴포넌트 초기화
+        action = new PlayerInputAction();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        action.Player.Enable();
+        action.Player.Test1.performed += Test1_performed;
+        action.Player.Test2.performed += Test2_performed;
+        action.Player.Test3.performed += Test3_performed;
+        action.Player.Test4.performed += Test4_performed;
+        action.Player.Test5.performed += Test5_performed;
+
     }
+
+    private void OnDisable()
+    {
+        action.Player.Test5.canceled -= Test5_performed;
+        action.Player.Test4.canceled -= Test4_performed;
+        action.Player.Test3.canceled -= Test3_performed;
+        action.Player.Test2.canceled -= Test2_performed;
+        action.Player.Test1.canceled -= Test1_performed;
+        action.Player.Disable();
+    }
+
+    private void Start()
+    {
+        player = GameManager.Instance.Player;
+    }
+
+    private void Test1_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        player.Life = 0;
+    }
+
+    private void Test2_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void Test3_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+   
+    private void Test4_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void Test5_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+    }
+
+
 }

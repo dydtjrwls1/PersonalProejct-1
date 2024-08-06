@@ -25,6 +25,8 @@ public class PlayerBase : MonoBehaviour
 
     public Action<int> lifeChange = null;
 
+    public Action onDie = null;
+
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
 
@@ -354,6 +356,8 @@ public class PlayerBase : MonoBehaviour
         action.Player.Disable();
 
         coll.enabled = false;
+
+        onDie?.Invoke();
     }
 
     IEnumerator Hit()
