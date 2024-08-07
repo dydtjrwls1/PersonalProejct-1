@@ -19,18 +19,19 @@ public class LevelUpSlots : MonoBehaviour
     void InitSlotList()
     {
         bonusList.Clear();
-        AddBonusSlots(LevelUpBonus.GetMeleeAttack(), 5);
-        AddBonusSlots(LevelUpBonus.GetRangeAttack(), 5);
-        AddBonusSlots(LevelUpBonus.GetMeleeCount(), 5);
-        AddBonusSlots(LevelUpBonus.GetRangeCount(), 5);
-        AddBonusSlots(LevelUpBonus.GetSpeed(), 5);
-        AddBonusSlots(LevelUpBonus.GetHeal(), 5);
-        AddBonusSlots(LevelUpBonus.GetRangeAttack(), 5);
+        AddBonusSlots(LevelUpBonus.Stat.MeleeAttack, 5);
+        AddBonusSlots(LevelUpBonus.Stat.RangeAttack, 5);
+        AddBonusSlots(LevelUpBonus.Stat.MeleeCount, 5);
+        AddBonusSlots(LevelUpBonus.Stat.RangeCount, 5);
+        AddBonusSlots(LevelUpBonus.Stat.Speed, 5);
+        AddBonusSlots(LevelUpBonus.Stat.Heal, 5);
     }
 
-    void AddBonusSlots(LevelUpBonus slot, int count)
+    void AddBonusSlots(LevelUpBonus.Stat stat, int count)
     {
         for (int i = 0; i < count; i++)
-            bonusList.Add(slot);
+            bonusList.Add(new LevelUpBonus(stat, 1));
     }
+
+    
 }

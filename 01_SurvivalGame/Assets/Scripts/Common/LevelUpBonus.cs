@@ -21,6 +21,9 @@ public class LevelUpBonus
 
     public Sprite sprite;
 
+    // Panel 에서 List 내의 Bonus 를 선택할 때 중복선택을 방지하기 위한 값.
+    public bool isSelected = false;
+
     public LevelUpBonus(Stat stat, int value)
     {
         this.stat = stat;
@@ -34,35 +37,5 @@ public class LevelUpBonus
         }
 
         sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-    }
-
-    public static LevelUpBonus GetMeleeAttack()
-    {
-        return new LevelUpBonus(Stat.MeleeAttack, 1);
-    }
-
-    public static LevelUpBonus GetRangeAttack()
-    {
-        return new LevelUpBonus(Stat.RangeAttack, 1);
-    }
-
-    public static LevelUpBonus GetMeleeCount()
-    {
-        return new LevelUpBonus(Stat.MeleeCount, 1);
-    }
-
-    public static LevelUpBonus GetRangeCount()
-    {
-        return new LevelUpBonus(Stat.RangeCount, 1);
-    }
-
-    public static LevelUpBonus GetSpeed()
-    {
-        return new LevelUpBonus(Stat.Speed, 1);
-    }
-
-    public static LevelUpBonus GetHeal()
-    {
-        return new LevelUpBonus(Stat.Heal, 1);
     }
 }

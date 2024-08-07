@@ -65,7 +65,6 @@ public class TestBase : MonoBehaviour
 
     private void Test3_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        Debug.Log(LevelUpBonus.GetMeleeAttack().sprite);
     }
    
     private void Test4_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
