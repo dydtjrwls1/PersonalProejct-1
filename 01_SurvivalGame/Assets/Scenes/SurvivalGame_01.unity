@@ -734,6 +734,7 @@ GameObject:
   - component: {fileID: 161843601}
   - component: {fileID: 161843603}
   - component: {fileID: 161843602}
+  - component: {fileID: 161843604}
   m_Layer: 5
   m_Name: LevelUpBoard (1)
   m_TagString: Untagged
@@ -800,6 +801,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161843600}
   m_CullTransparentMesh: 1
+--- !u!114 &161843604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161843600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13105186c2dbdd148959d73cc9913519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &166871760
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +824,7 @@ GameObject:
   - component: {fileID: 166871761}
   - component: {fileID: 166871763}
   - component: {fileID: 166871762}
+  - component: {fileID: 166871764}
   m_Layer: 5
   m_Name: LevelUpBoard (2)
   m_TagString: Untagged
@@ -877,6 +891,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166871760}
   m_CullTransparentMesh: 1
+--- !u!114 &166871764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166871760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13105186c2dbdd148959d73cc9913519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &173515733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,6 +1306,7 @@ GameObject:
   - component: {fileID: 280709825}
   - component: {fileID: 280709827}
   - component: {fileID: 280709826}
+  - component: {fileID: 280709828}
   m_Layer: 5
   m_Name: LevelUpBoard
   m_TagString: Untagged
@@ -1346,6 +1373,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280709824}
   m_CullTransparentMesh: 1
+--- !u!114 &280709828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280709824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13105186c2dbdd148959d73cc9913519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &316325558
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,6 +3149,7 @@ GameObject:
   - component: {fileID: 905422930}
   - component: {fileID: 905422929}
   - component: {fileID: 905422928}
+  - component: {fileID: 905422931}
   m_Layer: 5
   m_Name: LevelUpPanel
   m_TagString: Untagged
@@ -3203,6 +3243,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905422926}
   m_CullTransparentMesh: 1
+--- !u!114 &905422931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905422926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b77c1e954c91c41a0fa32f6eb28c59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &960607999
 GameObject:
   m_ObjectHideFlags: 0
@@ -4042,6 +4094,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1147730257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1147730258}
+  - component: {fileID: 1147730259}
+  m_Layer: 0
+  m_Name: LevelUpSlots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1147730258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147730257}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 47.79309, y: -22.438263, z: -6.0430994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1914675017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1147730259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147730257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b953e0e534d54e4bbfb85f8faef6aa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1194474823
 GameObject:
   m_ObjectHideFlags: 0
@@ -5262,6 +5358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e865b1b1b2d03c245ba7f0b81ac68d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileName: health
 --- !u!1 &1684196662
 GameObject:
   m_ObjectHideFlags: 0
@@ -5929,6 +6026,7 @@ GameObject:
   - component: {fileID: 1914675017}
   - component: {fileID: 1914675019}
   - component: {fileID: 1914675018}
+  - component: {fileID: 1914675020}
   m_Layer: 5
   m_Name: LevelUpSpace
   m_TagString: Untagged
@@ -5950,6 +6048,7 @@ RectTransform:
   m_Children:
   - {fileID: 905422927}
   - {fileID: 960608000}
+  - {fileID: 1147730258}
   m_Father: {fileID: 1393451197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5990,6 +6089,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1914675020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914675016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a551961d1e756b48921956f56860d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1936502674
 GameObject:
   m_ObjectHideFlags: 0

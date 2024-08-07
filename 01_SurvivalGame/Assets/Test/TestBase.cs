@@ -65,12 +65,12 @@ public class TestBase : MonoBehaviour
 
     private void Test3_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        Debug.Log(LevelUpBonus.GetMeleeAttack().sprite);
     }
    
     private void Test4_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        player.Test_LevelUp();
     }
 
     private void Test5_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)

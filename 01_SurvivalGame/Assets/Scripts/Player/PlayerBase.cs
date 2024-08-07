@@ -37,7 +37,7 @@ public class PlayerBase : MonoBehaviour
     bool enemyInRange = false;
 
     // 무적 레이어 키 값
-     int ImmuneLayerNum;
+    int ImmuneLayerNum;
 
     // 플레이어 레이어 키 값
     int PlayerLayerNum;
@@ -68,7 +68,7 @@ public class PlayerBase : MonoBehaviour
 
     // 플레이어 애니메이션 컨트롤러
     Animator animator;
-    
+
     // 플레이어 스프라이트
     SpriteRenderer sr;
 
@@ -94,7 +94,7 @@ public class PlayerBase : MonoBehaviour
         get => life;
         set
         {
-            if(life != value)
+            if (life != value)
             {
                 life = value;
                 if (IsAlive)
@@ -155,7 +155,7 @@ public class PlayerBase : MonoBehaviour
         private set
         {
             power = value;
-        }       
+        }
     }
 
     // 애니메이션 제어를 위한 Speed 파라미터의 해쉬번호
@@ -223,8 +223,8 @@ public class PlayerBase : MonoBehaviour
             Exp += coin.ExpPoint;
             collision.gameObject.SetActive(false);
         }
-            
-        
+
+
     }
 
     /// <summary>
@@ -255,7 +255,7 @@ public class PlayerBase : MonoBehaviour
         // 플레이어가 왼쪽으로 향하면 왼쪽을보고 오른쪽을 향하면 오른쪽을 본다.
         if ((direction.x < 0.0f && !isFlipped) || (direction.x > 0.0f && isFlipped))
         {
-             sr.flipX = !sr.flipX;
+            sr.flipX = !sr.flipX;
             isFlipped = !isFlipped;
             srWeapon.flipX = !srWeapon.flipX; // 무기 스프라이트 좌우 반전
             srWeapon.sortingOrder = sr.flipX ? 2 : 0; // 캐릭터가 오른쪽을 보면 캐릭터보다 아래에 그리고 왼쪽을 보면 위에 그린다
@@ -285,7 +285,7 @@ public class PlayerBase : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
             // 사정거리 내부에 적이 있을 경우에만 실행
-            if(enemiesInShootingZone.Count > 0)
+            if (enemiesInShootingZone.Count > 0)
             {
                 enemyInRange = true;
                 nearestEnemy = FIndClosestEnemy();
@@ -316,7 +316,7 @@ public class PlayerBase : MonoBehaviour
 
         foreach (var enemy in enemiesInShootingZone)
         {
-            if(!enemy.gameObject.activeSelf)
+            if (!enemy.gameObject.activeSelf)
                 enemiesInShootingZone.Remove(enemy);
             float distance = Vector3.Distance(enemy.position, transform.position);
             if (distance < minDistance)
@@ -377,4 +377,11 @@ public class PlayerBase : MonoBehaviour
         sr.color = Color.white;
         gameObject.layer = PlayerLayerNum;
     }
+
+#if UNITY_EDITOR
+    public void Test_LevelUp()
+    {
+        Exp += maxExp;
+    }
+#endif
 }

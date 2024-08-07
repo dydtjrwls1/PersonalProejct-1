@@ -9,9 +9,9 @@ public class LevelUpBonus
     {
         MeleeAttack = 0,
         RangeAttack,
-        Speed,
         MeleeCount,
         RangeCount,
+        Speed,
         Heal
     };
 
@@ -19,48 +19,50 @@ public class LevelUpBonus
 
     public int value;
 
-    public Texture2D texture;
+    public Sprite sprite;
 
-    public LevelUpBonus(Stat stat, int value, string fileName)
+    public LevelUpBonus(Stat stat, int value)
     {
         this.stat = stat;
         this.value = value;
-        texture = Resources.Load<Texture2D>(fileName);
+        Texture2D texture = Resources.Load<Texture2D>($"{stat.ToString()}");
 
         if (texture == null)
         {
             Debug.LogWarning("LevelUpBonus 초기화 중 Texture 파일 읽기 실패.");
             return;
         }
+
+        sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-    public LevelUpBonus GetMeleeAttack()
+    public static LevelUpBonus GetMeleeAttack()
     {
-        return new LevelUpBonus(Stat.MeleeAttack, 1, "MeleeAttack");
+        return new LevelUpBonus(Stat.MeleeAttack, 1);
     }
 
-    public LevelUpBonus GetRangeAttack()
+    public static LevelUpBonus GetRangeAttack()
     {
-        return new LevelUpBonus(Stat.RangeAttack, 1, "RangeAttack");
+        return new LevelUpBonus(Stat.RangeAttack, 1);
     }
 
-    public LevelUpBonus GetMeleeCount()
+    public static LevelUpBonus GetMeleeCount()
     {
-        return new LevelUpBonus(Stat.MeleeCount, 1, "MeleeCount");
+        return new LevelUpBonus(Stat.MeleeCount, 1);
     }
 
-    public LevelUpBonus GetRangeCount()
+    public static LevelUpBonus GetRangeCount()
     {
-        return new LevelUpBonus(Stat.RangeCount, 1, "RangeCount");
+        return new LevelUpBonus(Stat.RangeCount, 1);
     }
 
-    public LevelUpBonus GetSpeed()
+    public static LevelUpBonus GetSpeed()
     {
-        return new LevelUpBonus(Stat.Speed, 1, "Speed");
+        return new LevelUpBonus(Stat.Speed, 1);
     }
 
-    public LevelUpBonus GetHeal()
+    public static LevelUpBonus GetHeal()
     {
-        return new LevelUpBonus(Stat.Heal, 1, "Health");
+        return new LevelUpBonus(Stat.Heal, 1);
     }
 }
