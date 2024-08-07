@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class TestBase : MonoBehaviour
@@ -7,6 +8,9 @@ public class TestBase : MonoBehaviour
     PlayerInputAction action;
 
     PlayerBase player;
+
+    public string fileName = "health"; // Resources 폴더 내의 파일 이름 (확장자 제외)
+    private Texture2D texture;
 
     void Awake()
     {
@@ -47,7 +51,16 @@ public class TestBase : MonoBehaviour
 
     private void Test2_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        texture = Resources.Load<Texture2D>(fileName);
+        if (texture != null)
+        {
+            Debug.Log("Texture loaded successfully.");
+            // 텍스처를 사용하는 코드 추가
+        }
+        else
+        {
+            Debug.LogError("Failed to load texture.");
+        }
     }
 
     private void Test3_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
