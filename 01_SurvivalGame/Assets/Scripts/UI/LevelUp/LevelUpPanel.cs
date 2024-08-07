@@ -7,12 +7,6 @@ public class LevelUpPanel : MonoBehaviour
 {
     List<LevelUpBonus> bonusList;
 
-    LevelUpBonus meleeAtkSlot;
-    LevelUpBonus rangeAtkSlot;
-    LevelUpBonus meleeCountSlot;
-    LevelUpBonus rangeCountSlot;
-    LevelUpBonus healSlot;
-
     private void Awake()
     {
         
@@ -20,6 +14,8 @@ public class LevelUpPanel : MonoBehaviour
 
     private void Start()
     {
+        LevelUpBonus slot = new LevelUpBonus(LevelUpBonus.Stat.Speed, 1, "speed");
+        
     }
 
     void AddBonusSlots(LevelUpBonus slot, int count)
