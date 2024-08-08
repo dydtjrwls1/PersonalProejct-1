@@ -66,6 +66,27 @@ public class LevelUpPanel : MonoBehaviour
             board.Bonus.isSelected = false;
         }
 
+        PlayerBase player = GameManager.Instance.Player;
+
+        switch (bonus.stat)
+        {
+            case LevelUpBonus.Stat.MeleeAttack:
+                player.MeleePower += bonus.value;
+                break;
+            case LevelUpBonus.Stat.RangeAttack:
+                player.RangePower += bonus.value;
+                break;
+            case LevelUpBonus.Stat.MeleeCount:
+                break;
+            case LevelUpBonus.Stat.RangeCount:
+                break;
+            case LevelUpBonus.Stat.Speed:
+                player.AddedSpeed += bonus.value;
+                break;
+            case LevelUpBonus.Stat.Heal:
+                player.Life++;
+                break;
+        }
         bonusList.Remove(bonus);
 
         GetComponentInParent<Animator>().SetTrigger("EndSelect");

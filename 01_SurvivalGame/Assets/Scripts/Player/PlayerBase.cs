@@ -42,6 +42,8 @@ public class PlayerBase : MonoBehaviour
     // 플레이어 레이어 키 값
     int PlayerLayerNum;
 
+    float addedSpeed = 0.0f;
+
     // 현재경험치
     int exp = 0;
 
@@ -52,7 +54,9 @@ public class PlayerBase : MonoBehaviour
     int level = 1;
 
     // 공격력
-    int power = 1;
+    int meleePower = 1;
+
+    int rangePower = 1;
 
     // 체력
     int life = 3;
@@ -97,6 +101,7 @@ public class PlayerBase : MonoBehaviour
             if (life != value)
             {
                 life = value;
+                life = Mathf.Clamp(0, 3, life);
                 if (IsAlive)
                     OnHit();
                 else
@@ -112,7 +117,10 @@ public class PlayerBase : MonoBehaviour
         get { return currentSpeed; }
         set
         {
-            currentSpeed = value;
+            if (value < 0.1f)
+                currentSpeed = value;
+            else 
+                currentSpeed = value + AddedSpeed;
             animator.SetFloat(SpeedParameter_Hash, currentSpeed);
         }
     }
@@ -130,7 +138,6 @@ public class PlayerBase : MonoBehaviour
                 exp = exp - maxExp; // 남은 경험치 계산
                 maxExp *= 2;
                 Level += 1;
-                Power += 1;
                 levelUpAction(Level); // Level UI 에 레벨업 이벤트 발생 알림
             }
 
@@ -149,12 +156,30 @@ public class PlayerBase : MonoBehaviour
     }
 
     // 공격력 프로퍼티
-    public int Power
+    public int MeleePower
     {
-        get => power;
-        private set
+        get => meleePower;
+        set
         {
-            power = value;
+            meleePower = value;
+        }
+    }
+
+    public int RangePower
+    {
+        get => rangePower;
+        set
+        {
+            rangePower = value;
+        }
+    }
+
+    public float AddedSpeed
+    {
+        get => addedSpeed;
+        set
+        {
+            addedSpeed = value;
         }
     }
 

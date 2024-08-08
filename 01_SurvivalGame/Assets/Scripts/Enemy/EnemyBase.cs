@@ -106,12 +106,12 @@ public class EnemyBase : RecycleObject
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            HP -= GameManager.Instance.Player.Power;
+            HP -= GameManager.Instance.Player.RangePower;
             collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.CompareTag("Weapon"))
         {
-            HP -= GameManager.Instance.Player.Power;
+            HP -= GameManager.Instance.Player.MeleePower;
         }
     }
 
