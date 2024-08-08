@@ -8,11 +8,7 @@ public class LevelUpBoard : MonoBehaviour
 
     public LevelUpBonus Bonus
     {
-        get
-        {
-            currentBonus.isSelected = false;
-            return currentBonus;
-        }
+        get => currentBonus;
         set
         {
             currentBonus = value;
