@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelUpSlots : MonoBehaviour
+// LevelUp 시 선택할 수 있는 보너스 들을 모아놓은 스크립트
+// 선택된 Bonus 는 List 에서 제거된다.
+public class LevelUpSlots : SingleTon<LevelUpSlots>
 {
     public List<LevelUpBonus> bonusList;
 
@@ -33,5 +35,8 @@ public class LevelUpSlots : MonoBehaviour
             bonusList.Add(new LevelUpBonus(stat, 1));
     }
 
-    
+    public void RemoveSlot(LevelUpBonus bonus)
+    {
+        bonusList.Remove(bonus);
+    }
 }
