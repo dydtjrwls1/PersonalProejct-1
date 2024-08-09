@@ -460,7 +460,7 @@ public class PlayerBase : MonoBehaviour
         for(int i = 0; i < MeleeCount; i++)
         {
             meleeWeapons[i].gameObject.SetActive(true);
-            meleeWeapons[i].position = Quaternion.Euler(0, 0, 360 / (i + 1)) * Vector3.right;
+            meleeWeapons[i].position = Quaternion.Euler(0, 0, 360 / (meleeCount)) * Vector3.right;
         }
     }
 
