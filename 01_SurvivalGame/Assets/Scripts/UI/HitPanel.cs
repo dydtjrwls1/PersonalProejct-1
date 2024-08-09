@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HitPanel : MonoBehaviour
 {
+    float effectPlaySpeed = 10.0f;
+
     Color orgColor;
 
     PlayerBase player;
@@ -39,7 +41,7 @@ public class HitPanel : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            image.color = new Color(1, 0, 0, (Mathf.Cos(elapsedTime * 10.0f) + 1.0f) * 0.2f);
+            image.color = new Color(1, 0, 0, (Mathf.Cos(elapsedTime * effectPlaySpeed) + 1.0f) * 0.2f);
 
             yield return null;
         }

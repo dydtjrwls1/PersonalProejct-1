@@ -21,12 +21,12 @@ public class LevelUpSlots : SingleTon<LevelUpSlots>
     void InitSlotList()
     {
         bonusList.Clear();
-        AddBonusSlots(LevelUpBonus.Stat.MeleeAttack, 5);
-        AddBonusSlots(LevelUpBonus.Stat.RangeAttack, 5);
-        AddBonusSlots(LevelUpBonus.Stat.MeleeCount, 5);
-        AddBonusSlots(LevelUpBonus.Stat.RangeCount, 5);
-        AddBonusSlots(LevelUpBonus.Stat.Speed, 5);
-        AddBonusSlots(LevelUpBonus.Stat.Heal, 5);
+        AddBonusSlots(LevelUpBonus.Stat.MeleeAttack, 4);
+        AddBonusSlots(LevelUpBonus.Stat.RangeAttack, 4);
+        AddBonusSlots(LevelUpBonus.Stat.MeleeCount, 4);
+        AddBonusSlots(LevelUpBonus.Stat.RangeCount, 4);
+        AddBonusSlots(LevelUpBonus.Stat.Speed, 4);
+        AddBonusSlots(LevelUpBonus.Stat.Heal, 4);
     }
 
     void AddBonusSlots(LevelUpBonus.Stat stat, int count)

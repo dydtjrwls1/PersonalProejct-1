@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HealPanel : MonoBehaviour
 {
+    float effectPlaySpeed = 10.0f;
+
     Color orgColor;
 
     PlayerBase player;
@@ -39,7 +41,7 @@ public class HealPanel : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            image.color = new Color(0, 1, 0, (Mathf.Cos(elapsedTime * 10.0f) + 1.0f) * 0.2f);
+            image.color = new Color(0, 1, 0, (Mathf.Cos(elapsedTime * effectPlaySpeed) + 1.0f) * 0.2f);
 
             yield return null;
         }
