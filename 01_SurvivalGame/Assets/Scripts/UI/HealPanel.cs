@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HitPanel : MonoBehaviour
+public class HealPanel : MonoBehaviour
 {
     PlayerBase player;
 
-    Image image;
+     Image image;
 
     private void Awake()
     {
@@ -18,27 +18,27 @@ public class HitPanel : MonoBehaviour
     {
         player = GameManager.Instance.Player;
 
-        player.onHit += HitEffect;
+        player.onHeal += HealEffect;
     }
 
-    void HitEffect( )
+    void HealEffect()
     {
-        StartCoroutine(HitEffectAction());
+         StartCoroutine(HealEffectAction());
     }
 
-    IEnumerator HitEffectAction()
+    IEnumerator HealEffectAction()
     {
         float elapsedTime = 0.0f;
 
         image.enabled = true;
 
-        image.color = new Color(1, 0, 0, 0.2f);
+        image.color = new Color(0, 1, 0, 0.2f);
 
         while (image.color.a > 0.001f)
         {
             elapsedTime += Time.deltaTime;
 
-            image.color = new Color(1, 0, 0, (Mathf.Cos(elapsedTime * 10.0f) + 1.0f) * 0.2f);
+            image.color = new Color(0, 1, 0, (Mathf.Cos(elapsedTime * 10.0f) + 1.0f) * 0.2f);
 
             yield return null;
         }

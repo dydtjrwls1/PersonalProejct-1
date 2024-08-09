@@ -25,7 +25,11 @@ public class PlayerBase : MonoBehaviour
 
     public Action<int> lifeChange = null;
 
+    public Action onHeal = null;
+
     public Action onDie = null;
+
+    public Action onHit = null;
 
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
@@ -113,19 +117,28 @@ public class PlayerBase : MonoBehaviour
         {
             if (life != value)
             {
-                if (value > maxLife)    
-                    life = Mathf.Clamp(life, 0, maxLife);
+                if (life < value)
+                {
+                    life = value;
+                    onHeal?.Invoke();
+
+                    if (value > maxLife)
+                        life = Mathf.Clamp(life, 0, maxLife);
+                    
+                }
                 else
                 {
                     life = value;
 
                     if (IsAlive)
+                    {
+                        onHit?.Invoke();
                         OnHit();
+                    }
                     else
                         OnDie();
-
-                    lifeChange?.Invoke(life);
                 }
+                lifeChange?.Invoke(life);
             }
         }
     }
