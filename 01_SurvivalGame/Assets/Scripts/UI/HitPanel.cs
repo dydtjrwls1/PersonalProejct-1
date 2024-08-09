@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HitPanel : MonoBehaviour
 {
+    Color orgColor;
+
     PlayerBase player;
 
     Image image;
@@ -12,6 +14,7 @@ public class HitPanel : MonoBehaviour
     private void Awake()
     {
         image = GetComponent<Image>();
+        orgColor = new Color(1, 0, 0, 0.4f);
     }
 
     private void Start()
@@ -29,10 +32,8 @@ public class HitPanel : MonoBehaviour
     IEnumerator HitEffectAction()
     {
         float elapsedTime = 0.0f;
-
         image.enabled = true;
-
-        image.color = new Color(1, 0, 0, 0.2f);
+        image.color = orgColor;
 
         while (image.color.a > 0.001f)
         {

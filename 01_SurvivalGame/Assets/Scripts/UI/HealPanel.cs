@@ -5,13 +5,16 @@ using UnityEngine.UI;
 
 public class HealPanel : MonoBehaviour
 {
+    Color orgColor;
+
     PlayerBase player;
 
-     Image image;
+    Image image;
 
     private void Awake()
     {
         image = GetComponent<Image>();
+        orgColor = new Color(0, 1, 0, 0.4f);
     }
 
     private void Start()
@@ -29,10 +32,8 @@ public class HealPanel : MonoBehaviour
     IEnumerator HealEffectAction()
     {
         float elapsedTime = 0.0f;
-
         image.enabled = true;
-
-        image.color = new Color(0, 1, 0, 0.2f);
+        image.color = orgColor;
 
         while (image.color.a > 0.001f)
         {
