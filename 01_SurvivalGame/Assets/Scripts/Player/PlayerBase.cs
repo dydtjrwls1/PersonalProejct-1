@@ -348,6 +348,53 @@ public class PlayerBase : MonoBehaviour
         Speed = 0.0f;
     }
 
+    void SetMeleeWeapon()
+    {
+        for (int i = 0; i < MeleeCount; i++)
+        {
+            meleeWeapons[i].gameObject.SetActive(true);
+            float angle = 360 / MeleeCount;
+            meleeWeapons[i].localPosition = Quaternion.Euler(0, 0, angle * i) * (Vector3.right * 2.0f);
+            meleeWeapons[i].right = meleeWeapons[i].position - transform.position;
+        }
+    }
+
+    Transform FIndClosestEnemy()
+    {
+        Transform ClosestEnemy = null;
+        float minDistance = float.MaxValue;
+
+        foreach (var enemy in enemiesInShootingZone)
+        {
+            if (!enemy.gameObject.activeSelf)
+                enemiesInShootingZone.Remove(enemy);
+            float distance = Vector3.Distance(enemy.position, transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                ClosestEnemy = enemy;
+            }
+        }
+
+        return ClosestEnemy;
+    }
+
+    
+
+    void OnHit()
+    {
+        StartCoroutine(Hit());
+    }
+
+    void OnDie()
+    {
+        action.Player.Disable();
+
+        coll.enabled = false;
+
+        onDie?.Invoke();
+    }
+
     /// <summary>
     /// 매 주기마다 가장 가까운 적의 위치를 갱신하는 코루틴
     /// </summary>
@@ -382,25 +429,7 @@ public class PlayerBase : MonoBehaviour
     /// enemiesInShootingZone 내에서 가장 가까운 적을 찾는다
     /// </summary>
     /// <returns>가장 가까운 적의 Transform</returns>
-    Transform FIndClosestEnemy()
-    {
-        Transform ClosestEnemy = null;
-        float minDistance = float.MaxValue;
-
-        foreach (var enemy in enemiesInShootingZone)
-        {
-            if (!enemy.gameObject.activeSelf)
-                enemiesInShootingZone.Remove(enemy);
-            float distance = Vector3.Distance(enemy.position, transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                ClosestEnemy = enemy;
-            }
-        }
-
-        return ClosestEnemy;
-    }
+    
 
     IEnumerator Fire()
     {
@@ -413,29 +442,7 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        if (enemyInRange)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawCube(nearestEnemy.position, new Vector3(1, 1));
-        }
-
-    }
-
-    void OnHit()
-    {
-        StartCoroutine(Hit());
-    }
-
-    void OnDie()
-    {
-        action.Player.Disable();
-
-        coll.enabled = false;
-
-        onDie?.Invoke();
-    }
+    
 
     IEnumerator Hit()
     {
@@ -455,19 +462,20 @@ public class PlayerBase : MonoBehaviour
         gameObject.layer = PlayerLayerNum;
     }
 
-    void SetMeleeWeapon()
-    {
-        for(int i = 0; i < MeleeCount; i++)
-        {
-            meleeWeapons[i].gameObject.SetActive(true);
-            meleeWeapons[i].position = Quaternion.Euler(0, 0, 360 / (meleeCount)) * Vector3.right;
-        }
-    }
-
 #if UNITY_EDITOR
     public void Test_LevelUp()
     {
         Exp += maxExp;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (enemyInRange)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawCube(nearestEnemy.position, new Vector3(1, 1));
+        }
+
     }
 #endif
 }
