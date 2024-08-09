@@ -155,8 +155,8 @@ public class PlayerBase : MonoBehaviour
             if (exp > maxExp - 1)
             {
                 exp = exp - maxExp; // 남은 경험치 계산
-                maxExp *= 2;
-                Level += 1;
+                maxExp = Mathf.RoundToInt(maxExp * 1.4f);
+                Level++;
                 levelUpAction(Level); // Level UI 에 레벨업 이벤트 발생 알림
             }
 

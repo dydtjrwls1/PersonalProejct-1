@@ -60,8 +60,8 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             int currentWave = GameManager.Instance.wave;
-            Vector3 spawnPos = GetSpawnPosition();
             yield return new WaitForSeconds(Mathf.Max(data.spawnInterval - currentWave, 1.0f));
+            Vector3 spawnPos = GetSpawnPosition();
             switch (data.type)
             {
                 case enemyType.Zombie:
