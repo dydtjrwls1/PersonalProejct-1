@@ -54,7 +54,7 @@ public class LevelUpPanel : MonoBehaviour
 
             levelUpBoards[i].Bonus = bonusList[index];
         }
-
+        Time.timeScale = 0.0f;
     }
     
     void ButtonClicked(Button button)
@@ -93,5 +93,6 @@ public class LevelUpPanel : MonoBehaviour
 
         GetComponentInParent<Animator>().SetTrigger("EndSelect");
 
+        Time.timeScale = 1.0f;
     }
 }
