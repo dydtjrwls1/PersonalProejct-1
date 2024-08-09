@@ -133,4 +133,9 @@ public class EnemyBase : RecycleObject
         coin.ExpPoint = exp;
         DIsableTimer(1.0f);
     }
+
+    void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
 }

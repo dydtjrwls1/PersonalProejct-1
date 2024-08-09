@@ -26,11 +26,8 @@ public class LevelUpPanel : MonoBehaviour
         GameManager.Instance.Player.levelUpAction += RefreshSlots;
         foreach (var button in buttons)
         {
-            LevelUpBonus bonus = button.gameObject.GetComponent<LevelUpBoard>().Bonus;
-            button.onClick.AddListener(() => ButtonClicked(bonus));
+            button.onClick.AddListener(() => ButtonClicked(button));
         }
-
-        
     }
 
     /// <summary>
@@ -48,7 +45,7 @@ public class LevelUpPanel : MonoBehaviour
             {
                 index = Random.Range(0, bonusList.Count);
                 warning++;
-                if(warning > 100)
+                if (warning > 100)
                 {
                     Debug.LogWarning("warning! // 나중에 슬롯이 선택될 때 List 에서 제거되도록 설정.");
                     break;
@@ -57,10 +54,13 @@ public class LevelUpPanel : MonoBehaviour
 
             levelUpBoards[i].Bonus = bonusList[index];
         }
+
     }
     
-    void ButtonClicked(LevelUpBonus bonus)
+    void ButtonClicked(Button button)
     {
+        LevelUpBonus bonus = button.GetComponent<LevelUpBoard>().Bonus;
+
         foreach (var board in levelUpBoards)
         {
             board.Bonus.isSelected = false;
@@ -77,8 +77,10 @@ public class LevelUpPanel : MonoBehaviour
                 player.RangePower += bonus.value;
                 break;
             case LevelUpBonus.Stat.MeleeCount:
+                player.MeleeCount++;
                 break;
             case LevelUpBonus.Stat.RangeCount:
+                player.BarrageCount++;
                 break;
             case LevelUpBonus.Stat.Speed:
                 player.AddedSpeed += bonus.value;
@@ -90,5 +92,6 @@ public class LevelUpPanel : MonoBehaviour
         bonusList.Remove(bonus);
 
         GetComponentInParent<Animator>().SetTrigger("EndSelect");
+
     }
 }

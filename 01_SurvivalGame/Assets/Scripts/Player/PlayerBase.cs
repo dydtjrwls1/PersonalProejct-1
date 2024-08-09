@@ -42,13 +42,26 @@ public class PlayerBase : MonoBehaviour
     // 플레이어 레이어 키 값
     int PlayerLayerNum;
 
+    // 근접 무기 개수
+    int meleeCount = 1;
+
+    // 기본속도에 더해지는 속도
     float addedSpeed = 0.0f;
+
+    // 한번에 발사할 총알의 개수
+    int barrageCount = 1;
+
+    // 총알 연속 발사 간격
+    float barrageInterval = 0.1f;
 
     // 현재경험치
     int exp = 0;
 
     // 총 경험치
     int maxExp = 5;
+
+    // 최대 체력
+    int maxLife = 3;
 
     // 레벨
     int level = 1;
@@ -60,9 +73,6 @@ public class PlayerBase : MonoBehaviour
 
     // 체력
     int life = 3;
-
-    // 초기 체력
-    const int StartLife = 3;
 
     bool IsAlive => life > 0;
 
@@ -84,6 +94,9 @@ public class PlayerBase : MonoBehaviour
     // 사정거리 내의 적들의 Transform 배열
     List<Transform> enemiesInShootingZone = new List<Transform>();
 
+    // 근접무기 배열
+    Transform[] meleeWeapons = new Transform[5];
+
     // 플레이어 진행 방향
     Vector2 direction;
 
@@ -100,14 +113,20 @@ public class PlayerBase : MonoBehaviour
         {
             if (life != value)
             {
-                life = value;
-                life = Mathf.Clamp(0, 3, life);
-                if (IsAlive)
-                    OnHit();
+                if (value > maxLife)    
+                    life = Mathf.Clamp(life, 0, maxLife);
                 else
-                    OnDie();
+                {
+                    life = value;
+
+                    if (IsAlive)
+                        OnHit();
+                    else
+                        OnDie();
+
+                    lifeChange?.Invoke(life);
+                }
             }
-            lifeChange?.Invoke(life);
         }
     }
 
@@ -183,6 +202,28 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public int BarrageCount
+    {
+        get => barrageCount;
+        set
+        {
+            barrageCount = value;
+            barrageCount = Mathf.Clamp(barrageCount, 0, 5);
+        }
+    }
+
+    public int MeleeCount
+    {
+        get => meleeCount;
+        set
+        {
+            meleeCount = value;
+            meleeCount = Mathf.Clamp(meleeCount, 1, 5);
+
+            SetMeleeWeapon();
+        }
+    }
+
     // 애니메이션 제어를 위한 Speed 파라미터의 해쉬번호
     readonly int SpeedParameter_Hash = Animator.StringToHash("Speed");
 
@@ -196,13 +237,21 @@ public class PlayerBase : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
 
+        // 무기 배열 초기화
+        Transform spinPoint = transform.GetChild(4);
+        for (int i = 0; i < spinPoint.childCount; i++)
+        {
+            meleeWeapons[i] = spinPoint.GetChild(i);
+        }
+
         originColor = sr.color;
         hitColor = sr.color + new Color(0.5f, 0, 0, -0.8f);
 
         ImmuneLayerNum = LayerMask.NameToLayer("Immune");
         PlayerLayerNum = LayerMask.NameToLayer("Player");
 
-        Life = StartLife;
+        Life = maxLife;
+        MeleeCount = 1;
     }
 
     private void Start()
@@ -323,10 +372,9 @@ public class PlayerBase : MonoBehaviour
     {
         while (true)
         {
+            if (enemyInRange) // 사정거리 내부에 적이 있을경우에만 사격
+                StartCoroutine(Fire());
             yield return new WaitForSeconds(fireInterval);
-            // 사정거리 내부에 적이 있을경우에만 사격
-            if (enemyInRange)
-                Fire();
         }
     }
 
@@ -354,11 +402,15 @@ public class PlayerBase : MonoBehaviour
         return ClosestEnemy;
     }
 
-    void Fire()
+    IEnumerator Fire()
     {
-        Bullet bullet = Factory.Instance.GetBullet(firePoint.position);
-        float bulletAngle = Vector3.SignedAngle(Vector3.up, nearestEnemy.position - firePoint.position, Vector3.forward);
-        bullet.transform.Rotate(bulletAngle * Vector3.forward);
+        for(int i = 0; i < barrageCount; i++)
+        {
+            Bullet bullet = Factory.Instance.GetBullet(firePoint.position);
+            float bulletAngle = Vector3.SignedAngle(Vector3.up, nearestEnemy.position - firePoint.position, Vector3.forward);
+            bullet.transform.Rotate(bulletAngle * Vector3.forward);
+            yield return new WaitForSeconds(barrageInterval);
+        }
     }
 
     private void OnDrawGizmos()
@@ -401,6 +453,15 @@ public class PlayerBase : MonoBehaviour
 
         sr.color = Color.white;
         gameObject.layer = PlayerLayerNum;
+    }
+
+    void SetMeleeWeapon()
+    {
+        for(int i = 0; i < MeleeCount; i++)
+        {
+            meleeWeapons[i].gameObject.SetActive(true);
+            meleeWeapons[i].position = Quaternion.Euler(0, 0, 360 / (i + 1)) * Vector3.right;
+        }
     }
 
 #if UNITY_EDITOR
