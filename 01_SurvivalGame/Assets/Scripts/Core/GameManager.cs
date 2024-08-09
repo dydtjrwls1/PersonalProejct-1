@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,19 @@ public class GameManager : SingleTon<GameManager>
 
     ScoreText scoreText;
 
-    public int wave;
+    int wave = 1;
+
+    public Action<int> onWaveChange = null;
+
+    public int Wave
+    {
+        get => wave;
+        set
+        {
+            wave = value;
+            onWaveChange?.Invoke(wave);
+        }
+    }
 
     public PlayerBase Player
     {

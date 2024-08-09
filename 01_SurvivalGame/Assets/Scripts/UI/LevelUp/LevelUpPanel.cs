@@ -47,7 +47,7 @@ public class LevelUpPanel : MonoBehaviour
                 warning++;
                 if (warning > 100)
                 {
-                    Debug.LogWarning("warning! // 나중에 슬롯이 선택될 때 List 에서 제거되도록 설정.");
+                    Debug.LogWarning("warning! // LevelUpPanel 에서 슬롯 부족으로 무한 루프.");
                     break;
                 }
             } while (bonusList[index].isSelected); // levelUpBonus 클래스의 isSelected 가 true 일 경우 index 를 다시 뽑는다.
