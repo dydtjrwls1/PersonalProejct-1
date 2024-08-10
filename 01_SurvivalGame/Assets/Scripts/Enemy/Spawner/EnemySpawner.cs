@@ -59,26 +59,30 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Mathf.Max(data.spawnInterval, 1.0f));
-
             int currentWave = GameManager.Instance.Wave;
-            Vector3 spawnPos = GetSpawnPosition();
 
-            switch (data.type)
+            if (currentWave == ((int)data.type | currentWave)) 
             {
-                case enemyType.Zombie:
-                    Factory.Instance.GetZombie(spawnPos); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
-                    break;
-                case enemyType.StrongZombie:
-                    Factory.Instance.GetStrongZombie(spawnPos); // spawnPoint 에서 받은 위치와 현재 플레이어 위치를 더한 위치에 Spawn 한다
-                    break;
-                case enemyType.Skeleton:
-                    Factory.Instance.GetSkeleton(spawnPos);
-                    break;
+                yield return new WaitForSeconds(Mathf.Max(data.spawnInterval, 1.0f));
+                Vector3 spawnPos = GetSpawnPosition();
+
+                switch (data.type)
+                {
+                    case enemyType.Zombie:
+                        Factory.Instance.GetZombie(spawnPos);
+                        break;
+                    case enemyType.StrongZombie:
+                        Factory.Instance.GetStrongZombie(spawnPos);
+                        break;
+                    case enemyType.Skeleton:
+                        Factory.Instance.GetSkeleton(spawnPos);
+                        break;
+                }
             }
+            else { yield return null; } 
+                
         }
     }
-
     Vector3 GetSpawnPosition()
     {
         playerPosition = player.transform.position; // 현재 player의 위치
@@ -105,4 +109,3 @@ public class EnemySpawner : MonoBehaviour
     }
 #endif
 }
-
