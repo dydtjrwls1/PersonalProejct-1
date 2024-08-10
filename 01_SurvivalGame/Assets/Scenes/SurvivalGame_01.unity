@@ -7058,12 +7058,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2323891035619600413, guid: 18016f4d570b4514e871f1a89614c4b2, type: 3}
-      propertyPath: spawnDatas.Array.data[1].type
+      propertyPath: spawnDatas.Array.data[0].type
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2323891035619600413, guid: 18016f4d570b4514e871f1a89614c4b2, type: 3}
-      propertyPath: spawnDatas.Array.data[2].type
+      propertyPath: spawnDatas.Array.data[1].type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323891035619600413, guid: 18016f4d570b4514e871f1a89614c4b2, type: 3}
+      propertyPath: spawnDatas.Array.data[2].type
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2323891035619600413, guid: 18016f4d570b4514e871f1a89614c4b2, type: 3}
       propertyPath: spawnDatas.Array.data[0].spawnInterval

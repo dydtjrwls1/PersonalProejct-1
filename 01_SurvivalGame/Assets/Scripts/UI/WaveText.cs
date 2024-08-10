@@ -6,10 +6,13 @@ public class WaveText : MonoBehaviour
 {
     TextMeshProUGUI waveText;
 
+    Color transparentColor;
+
     private void Awake()
     {
         waveText = GetComponent<TextMeshProUGUI>();
-        waveText.color = new Color(1, 1, 1, 0.01f);
+        transparentColor = Color.white - Color.black;
+        waveText.color = transparentColor;
     }
 
     private void Start()
@@ -23,9 +26,9 @@ public class WaveText : MonoBehaviour
         float elapsedTime = 0.0f;
         waveText.text = $"Wave {currentWave}";
 
-        waveText.color = new Color(1, 1, 1, 0.01f);
+        waveText.color = transparentColor;
 
-        while (waveText.color.a > 0.0000001f)
+        while (elapsedTime < 6.5f)
         {
             elapsedTime += Time.deltaTime;
             Color currentColor = waveText.color;
@@ -37,5 +40,7 @@ public class WaveText : MonoBehaviour
 
             yield return null;
         }
+
+        waveText.color = transparentColor;
     }
 }

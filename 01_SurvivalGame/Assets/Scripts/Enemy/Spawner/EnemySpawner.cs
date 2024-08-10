@@ -7,9 +7,9 @@ public class EnemySpawner : MonoBehaviour
 {
     public enum enemyType
     {
-        Zombie = 0,
-        StrongZombie,
-        Skeleton
+        Zombie = 1,
+        StrongZombie = 2,
+        Skeleton = 4
     }
 
     [Serializable]
@@ -59,9 +59,11 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            // int currentWave = GameManager.Instance.wave;
             yield return new WaitForSeconds(Mathf.Max(data.spawnInterval, 1.0f));
+
+            int currentWave = GameManager.Instance.Wave;
             Vector3 spawnPos = GetSpawnPosition();
+
             switch (data.type)
             {
                 case enemyType.Zombie:
