@@ -21,14 +21,11 @@ public class ScoreText : MonoBehaviour
      
     public int Score
     {
-
         get { return score; }
         private set
         {
             score = value;
-            scoreText.text = score.ToString();
         }
-    
     }
 
     private void Awake()
@@ -40,16 +37,17 @@ public class ScoreText : MonoBehaviour
     private void Update()
     {
         // 실제 점수가 도달해야할 점수가 될때까지
-        if (Score < targetScore)
+        if (currentScore < targetScore)
         {
-            currentScore += (targetScore - Score) * Time.deltaTime * raiseSpeed;
+            currentScore += (targetScore - currentScore) * Time.deltaTime * raiseSpeed;
             currentScore = Mathf.Min(currentScore, targetScore); // 타겟 점수보다 높아질 경우를 방지한다.
-            Score = Mathf.RoundToInt(currentScore);
+            scoreText.text = currentScore.ToString();
         }
     }
 
     public void AddScore(int point)
     {
         targetScore += point;
+        Score = targetScore;
     }
 }

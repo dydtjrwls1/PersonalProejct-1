@@ -8,43 +8,91 @@ using System;
 
 public class RankLines : MonoBehaviour
 {
-    TextMeshProUGUI[] names = new TextMeshProUGUI[5]; // 각 rankLine 의 이름 text
-    TextMeshProUGUI[] scores = new TextMeshProUGUI[5]; // 각 rankLine 의 점수 text
+    string[] names = new string[5]; // 현재 랭커의 이름 text
+    int[] scores = new int[5]; // 현재 랭커의 점수 text
+
+    Transform[] rankLines;
+
+    ScoreText gameScoreText;
 
     string path;
     string fullPath;
 
-    [Serializable]
-    protected class Data
-    {
-        string name;
-        int score;
-    }
-
     private void Awake()
     {
         Transform panel = transform.GetChild(0);
-        Transform[] rankLines = new Transform[panel.childCount];
+        rankLines = new Transform[panel.childCount];
         for (int i = 0; i < rankLines.Length; i++)
-        {
             rankLines[i] = panel.GetChild(i); // rankLines = [RankLine, RankLine , ... ] 
-        }
 
-        int index = 0;
-        foreach (Transform rankLine in rankLines)
-        {
-            TextMeshProUGUI[] texts = rankLine.GetComponentsInChildren<TextMeshProUGUI>();
-            names[index] = texts[1];
-            scores[index] = texts[2];
-            index++;
-        }
+        
+
+        path = $"{Application.dataPath}/SaveData/";
+        fullPath = $"{path}data.txt"; 
     }
 
     private void Start()
     {
-        string path = Application.dataPath + "/SaveData/";
-        Debug.Log(Directory.Exists(path));
-        SetDefaultValue();
+        gameScoreText = GameManager.Instance.ScoreText;
+        LoadData();
+    }
+
+    void UpdateData()
+    {
+        for(int i = 0; i < scores.Length; i++)
+        {
+            if (scores[i] < gameScoreText.Score)
+            {
+                scores[i] = gameScoreText.Score;
+            }
+        }
+    }
+
+    void SetRankLineText()
+    {
+        int index = 0;
+        foreach (Transform rankLine in rankLines)
+        {
+            TextMeshProUGUI[] texts = rankLine.GetComponentsInChildren<TextMeshProUGUI>();
+            texts[1].text = names[index];
+            texts[2].text = scores[index].ToString();
+            index++;
+        }
+    }
+   
+
+    void LoadData()
+    {
+        CheckSaveDirectory();
+        if(File.Exists(fullPath))
+        {
+            SaveData data = new SaveData();
+            string jsonData = File.ReadAllText(fullPath);
+            data = JsonUtility.FromJson<SaveData>(jsonData);
+
+            names = data.names;
+            scores = data.scores;
+        } else
+        {
+            SetDefaultValue();
+        }
+    }
+
+    void SaveData()
+    {
+        CheckSaveDirectory();
+        SaveData data = new SaveData();
+        data.scores = scores;
+        data.names = names;
+
+        string jsonData = JsonUtility.ToJson(data);
+        File.WriteAllText(fullPath, jsonData);
+    }
+
+    void CheckSaveDirectory()
+    {
+        if (!Directory.Exists(path)) 
+            Directory.CreateDirectory(path);
     }
 
     void SetDefaultValue()
@@ -52,8 +100,8 @@ public class RankLines : MonoBehaviour
         char alphabet = 'A';
         for (int i = 0; i < names.Length; i++)
         {
-            names[i].text = $"{alphabet}{alphabet}{alphabet}";
-            scores[i].text = "0000";
+            names[i] = $"{alphabet}{alphabet}{alphabet}";
+            scores[i] = 0;
             alphabet = (char)(alphabet + 1);
         }
     }
