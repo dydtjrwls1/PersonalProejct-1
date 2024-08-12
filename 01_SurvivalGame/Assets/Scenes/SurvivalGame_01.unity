@@ -4383,7 +4383,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1147730258
 Transform:
@@ -5786,6 +5786,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1684196663}
+  - component: {fileID: 1684196664}
   m_Layer: 5
   m_Name: RankLines
   m_TagString: Untagged
@@ -5813,6 +5814,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -86}
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1684196664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684196662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05061c3573f3a1b40b18da982225921a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1729099692
 GameObject:
   m_ObjectHideFlags: 0
@@ -7039,11 +7052,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1162453597760851365, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1162453597760851365, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1162453597760851365, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
       propertyPath: m_LocalPosition.z

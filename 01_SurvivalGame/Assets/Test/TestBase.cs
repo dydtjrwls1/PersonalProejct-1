@@ -75,6 +75,7 @@ public class TestBase : MonoBehaviour
 
     private void Test5_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
+        player.Test_Die();
     }
 
 

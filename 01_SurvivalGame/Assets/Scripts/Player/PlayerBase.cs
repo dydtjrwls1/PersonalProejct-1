@@ -481,6 +481,11 @@ public class PlayerBase : MonoBehaviour
         Exp += maxExp;
     }
 
+    public void Test_Die()
+    {
+        Life = 0;
+    }
+
     private void OnDrawGizmos()
     {
         if (enemyInRange)
