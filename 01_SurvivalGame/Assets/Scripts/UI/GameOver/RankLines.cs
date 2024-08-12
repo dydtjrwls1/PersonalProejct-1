@@ -34,9 +34,8 @@ public class RankLines : MonoBehaviour
     private void Start()
     {
         gameScoreText = GameManager.Instance.ScoreText;
+        GameManager.Instance.Player.onDie += UpdateData;
         LoadData();
-        UpdateData();
-        SetRankLineText();
     }
 
     void UpdateData()
@@ -52,8 +51,11 @@ public class RankLines : MonoBehaviour
                 }
             }
         }
+
+        SetRankLineText();
     }
 
+    // RankLine 을 현재 점수와 이름으로 갱신
     void SetRankLineText()
     {
         int index = 0;
