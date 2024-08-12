@@ -35,6 +35,8 @@ public class RankLines : MonoBehaviour
     {
         gameScoreText = GameManager.Instance.ScoreText;
         LoadData();
+        UpdateData();
+        SetRankLineText();
     }
 
     void UpdateData()
@@ -44,6 +46,10 @@ public class RankLines : MonoBehaviour
             if (scores[i] < gameScoreText.Score)
             {
                 scores[i] = gameScoreText.Score;
+                for(int j = scores.Length - 1; j > i; j--)
+                {
+                    scores[j] = scores[j - 1];
+                }
             }
         }
     }
