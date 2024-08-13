@@ -24,6 +24,8 @@ public class EnemySpawner : MonoBehaviour
     // 이번에 Spawn 할 spawnPoint 의 index
     int pointIndex;
 
+    int bossWave = 8;
+
     // 이번에 Spawn 될 위치
     Vector3 spawnPosition;
 
@@ -61,6 +63,16 @@ public class EnemySpawner : MonoBehaviour
         {
             int currentWave = GameManager.Instance.Wave;
 
+            // currentWave 가 8 일경우 모든 쫄몹 소환을 정지시키고 보스 소환
+            if(currentWave == bossWave)
+            {
+                Boss boss = FindObjectOfType<Boss>(true);
+                boss.gameObject.SetActive(true);
+                boss.transform.position = player.transform.position + new Vector3(7, 0, 0);
+                StopAllCoroutines();
+                break;
+            }
+
             if (currentWave == ((int)data.type | currentWave)) 
             {
                 yield return new WaitForSeconds(Mathf.Max(data.spawnInterval, 1.0f));
@@ -80,7 +92,6 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
             else { yield return null; } 
-                
         }
     }
     Vector3 GetSpawnPosition()

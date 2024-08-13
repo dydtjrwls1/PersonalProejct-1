@@ -8,6 +8,8 @@ public class WaveText : MonoBehaviour
 
     Color transparentColor;
 
+    int bossWave = 8;
+
     private void Awake()
     {
         waveText = GetComponent<TextMeshProUGUI>();
@@ -24,7 +26,12 @@ public class WaveText : MonoBehaviour
     IEnumerator ActionAnimate(int currentWave)
     {
         float elapsedTime = 0.0f;
-        waveText.text = $"Wave {currentWave}";
+
+        if (currentWave == bossWave)
+            waveText.text = "Boss Wave";
+        else
+            waveText.text = $"Wave {currentWave}";
+
 
         waveText.color = transparentColor;
 

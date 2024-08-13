@@ -19,6 +19,7 @@ public class GameManager : SingleTon<GameManager>
         set
         {
             wave = value;
+            wave = Mathf.Clamp(wave, 1, 8);
             onWaveChange?.Invoke(wave);
         }
     }

@@ -1,1 +1,1 @@
-{"names":["fff","qwer","asd","qweq","EEE"],"scores":[50000,50000,50000,50000,0]}
+{"names":["fff","qwer","asd","qweq","qwer"],"scores":[50000,50000,50000,50000,50000]}
