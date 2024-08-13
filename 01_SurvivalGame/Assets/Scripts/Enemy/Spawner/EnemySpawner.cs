@@ -66,9 +66,6 @@ public class EnemySpawner : MonoBehaviour
             // currentWave 가 8 일경우 모든 쫄몹 소환을 정지시키고 보스 소환
             if(currentWave == bossWave)
             {
-                Boss boss = FindObjectOfType<Boss>(true);
-                boss.gameObject.SetActive(true);
-                boss.transform.position = player.transform.position + new Vector3(7, 0, 0);
                 StopAllCoroutines();
                 break;
             }
