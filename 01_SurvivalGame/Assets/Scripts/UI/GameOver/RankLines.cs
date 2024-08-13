@@ -5,11 +5,15 @@ using TMPro;
 using System.Linq;
 using System.IO;
 using System;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RankLines : MonoBehaviour
 {
     string[] names = new string[5]; // 현재 랭커의 이름 text
     int[] scores = new int[5]; // 현재 랭커의 점수 text
+
+    Button restartButton;
 
     TMP_InputField inputField;
 
@@ -28,6 +32,7 @@ public class RankLines : MonoBehaviour
     private void Awake()
     {
         inputField = GetComponentInChildren<TMP_InputField>(true);
+        restartButton = GetComponentInChildren<Button>();
         Transform panel = transform.GetChild(0);
         rankLines = new Transform[panel.childCount];
         for (int i = 0; i < rankLines.Length; i++)
@@ -39,10 +44,17 @@ public class RankLines : MonoBehaviour
 
     private void Start()
     {
+        restartButton.onClick.AddListener(Restart);
         inputField.onEndEdit.AddListener(EndEdit);
         gameScoreText = GameManager.Instance.ScoreText;
         GameManager.Instance.Player.onDie += UpdateData;
         LoadData();
+    }
+
+    void Restart()
+    {
+        SaveData();
+        SceneManager.LoadScene(0);
     }
 
     void EndEdit(string text)
@@ -110,7 +122,7 @@ public class RankLines : MonoBehaviour
         }
     }
 
-    void SaveData()
+    public void SaveData()
     {
         CheckSaveDirectory();
         SaveData data = new SaveData();

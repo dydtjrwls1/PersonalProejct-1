@@ -60,7 +60,6 @@ public class EnemyBase : RecycleObject
 
     protected virtual void Awake()
     {
-        player = GameManager.Instance.Player.transform;
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         scoreText = GameManager.Instance.ScoreText;
@@ -70,6 +69,7 @@ public class EnemyBase : RecycleObject
     protected override void OnEnable()
     {
         base.OnEnable();
+        player = GameManager.Instance.Player.transform;
         isAlive = true;
         hp = maxHP;
         rb.simulated = true;
