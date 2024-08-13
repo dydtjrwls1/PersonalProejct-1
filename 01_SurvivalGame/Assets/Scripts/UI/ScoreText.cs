@@ -41,7 +41,7 @@ public class ScoreText : MonoBehaviour
         {
             currentScore += (targetScore - currentScore) * Time.deltaTime * raiseSpeed;
             currentScore = Mathf.Min(currentScore, targetScore); // 타겟 점수보다 높아질 경우를 방지한다.
-            scoreText.text = currentScore.ToString();
+            scoreText.text = Mathf.RoundToInt(currentScore).ToString();
         }
     }
 
