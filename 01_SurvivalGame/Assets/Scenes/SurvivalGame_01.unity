@@ -7606,6 +7606,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
+    - target: {fileID: 771454724551159095, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 2949416085077369079, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154751460625370833, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 3225139563476782962, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345458497636173602, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
     - target: {fileID: 3394702118119936425, guid: 422afdac4b118d04a865124e35568de1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7645,6 +7665,22 @@ PrefabInstance:
     - target: {fileID: 3394702118119936425, guid: 422afdac4b118d04a865124e35568de1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716683545012168015, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 7445045045266975025, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921181521068740002, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742111719374570293, guid: 422afdac4b118d04a865124e35568de1, type: 3}
+      propertyPath: m_TagString
+      value: Background
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7698,6 +7734,10 @@ PrefabInstance:
     - target: {fileID: 1162453597760851365, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944137258856233184, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
+      propertyPath: m_TagString
+      value: Zone
       objectReference: {fileID: 0}
     - target: {fileID: 4831847698715848110, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
       propertyPath: m_Name

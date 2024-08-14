@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
@@ -310,8 +311,13 @@ public class PlayerBase : MonoBehaviour
             Exp += coin.ExpPoint;
             collision.gameObject.SetActive(false);
         }
-
-
+        else if (collision.CompareTag("Player") && collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            Life--;
+            collision.gameObject.SetActive(false);
+        }
+            
+            
     }
 
     /// <summary>

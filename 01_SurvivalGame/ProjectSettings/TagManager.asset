@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - Weapon
   - Coin
+  - EnemyBullet
+  - Zone
+  - Background
   layers:
   - Default
   - TransparentFX
