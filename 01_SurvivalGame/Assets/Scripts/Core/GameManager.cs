@@ -23,8 +23,11 @@ public class GameManager : SingleTon<GameManager>
             wave = Mathf.Clamp(wave, 1, 8);
             onWaveChange?.Invoke(wave);
             if (wave == 8)
+            {
                 SpawnBoss();
                 StartCoroutine(CameraMoving());
+            }
+                
         }
     }
 

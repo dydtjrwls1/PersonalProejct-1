@@ -15,6 +15,12 @@ public class Boss : EnemyBase
         StartCoroutine(StartAction());
     }
 
+    protected override void Die()
+    {
+        base.Die();
+        GameManager.Instance.Player.onDie?.Invoke();
+    }
+
     IEnumerator StartAction()
     {
         float orgSpeed = speed;

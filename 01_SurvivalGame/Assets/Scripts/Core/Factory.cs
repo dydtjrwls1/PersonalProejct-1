@@ -7,6 +7,7 @@ public class Factory : SingleTon<Factory>
     StrongZombieObjectPool strongZombie;
     ZombieObjectPool zombie;
     SkeletonObjectPool skeleton;
+    EnemyBulletObjectPool enemyBullet;
     BulletObjectPool bullet;
     CoinObjectPool coin;
 
@@ -31,6 +32,10 @@ public class Factory : SingleTon<Factory>
         coin = GetComponentInChildren<CoinObjectPool>();
         if (coin != null)
             coin.Initialize();
+
+        enemyBullet = GetComponentInChildren<EnemyBulletObjectPool>();
+        if (enemyBullet != null)
+            enemyBullet.Initialize();
     }
 
     public StrongZombie GetStrongZombie(Vector3? position = null, float angle = 0.0f)
@@ -58,5 +63,10 @@ public class Factory : SingleTon<Factory>
         Coin currentCoin = coin.GetObject(position);
         currentCoin.ExpPoint = point;
         return currentCoin;
+    }
+
+    public EnemyBullet GetEnemyBullet(Vector3? position = null)
+    {
+        return enemyBullet.GetObject(position);
     }
 }
