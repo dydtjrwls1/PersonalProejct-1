@@ -21,6 +21,10 @@ public class EnemyBullet : RecycleObject
         transform.Translate(Time.fixedDeltaTime * moveSpeed * direction);
     }
 
+    /// <summary>
+    /// 총알이 나아갈 방향을 정해주는 함수
+    /// </summary>
+    /// <param name="destination"></param>
     public void setDestination(Vector3 destination)
     {
         direction = (destination - transform.position).normalized;

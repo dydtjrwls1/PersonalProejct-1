@@ -33,6 +33,8 @@ public class RankLines : MonoBehaviour
     {
         inputField = GetComponentInChildren<TMP_InputField>(true);
         restartButton = GetComponentInChildren<Button>();
+
+        // rankLines 배열에 rankLine 할당
         Transform panel = transform.GetChild(0);
         rankLines = new Transform[panel.childCount];
         for (int i = 0; i < rankLines.Length; i++)
@@ -46,17 +48,28 @@ public class RankLines : MonoBehaviour
     {
         restartButton.onClick.AddListener(Restart);
         inputField.onEndEdit.AddListener(EndEdit);
+
         gameScoreText = GameManager.Instance.ScoreText;
-        GameManager.Instance.Player.onDie += UpdateData;
+
+        GameManager.Instance.Player.onDie += UpdateData; // 캐릭터 사망 이벤트에 UpdateData 등록
+
+        // 게임 시작 시 데이터 로드
         LoadData();
     }
 
+    /// <summary>
+    /// Restart 버튼과 연결될 재시작 함수
+    /// </summary>
     void Restart()
     {
         SaveData();
         SceneManager.LoadScene(0);
     }
 
+    /// <summary>
+    /// InputField 와 연결될 편집 종료 함수. 편집 종료 후 rank 목록 갱신한다
+    /// </summary>
+    /// <param name="text"></param>
     void EndEdit(string text)
     {
         names[rankerLineIndex] = text;

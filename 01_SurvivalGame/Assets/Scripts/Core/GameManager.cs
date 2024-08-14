@@ -12,6 +12,8 @@ public class GameManager : SingleTon<GameManager>
 
     int wave = 1;
 
+    const float CAMERA_SWITCH_TIME = 5.0f;
+
     public Action<int> onWaveChange = null;
 
     public int Wave
@@ -25,7 +27,7 @@ public class GameManager : SingleTon<GameManager>
             if (wave == 8)
             {
                 SpawnBoss();
-                StartCoroutine(CameraMoving());
+                StartCoroutine(CameraMoving(CAMERA_SWITCH_TIME)); // 보스용 카메라 움직임으로 전환하는 코루틴 실행
             }
                 
         }
@@ -64,14 +66,15 @@ public class GameManager : SingleTon<GameManager>
         boss.gameObject.SetActive(true);
     }
 
-    IEnumerator CameraMoving()
+    // 메인 카메라와 보스용 카메라를 보스 등장 애니메이션 시간(5초) 만큼 전환한다.
+    IEnumerator CameraMoving(float time)
     {
         Camera[] cameras = FindObjectsOfType<Camera>(true);
 
         cameras[0].enabled = !cameras[0].enabled;
         cameras[1].gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(time);
 
         cameras[0].enabled = !cameras[0].enabled;
         cameras[1].gameObject.SetActive(false);
