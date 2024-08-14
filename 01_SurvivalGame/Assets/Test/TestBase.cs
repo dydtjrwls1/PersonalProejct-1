@@ -51,16 +51,8 @@ public class TestBase : MonoBehaviour
 
     private void Test2_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        texture = Resources.Load<Texture2D>(fileName);
-        if (texture != null)
-        {
-            Debug.Log("Texture loaded successfully.");
-            // 텍스처를 사용하는 코드 추가
-        }
-        else
-        {
-            Debug.LogError("Failed to load texture.");
-        }
+        Vector3 test = Quaternion.AngleAxis(90, Vector3.forward) * new Vector3(1, 2, 0);
+        Debug.Log(test);
     }
 
     private void Test3_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
@@ -75,8 +67,7 @@ public class TestBase : MonoBehaviour
 
     private void Test5_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        GameManager.Instance.ScoreText.AddScore(50000);
-        player.Test_Die();
+        Debug.Log(player.transform.up);
     }
 
 

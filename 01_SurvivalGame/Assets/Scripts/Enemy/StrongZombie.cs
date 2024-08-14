@@ -12,8 +12,10 @@ public class StrongZombie : EnemyBase
 
         for(int i = 0; i < barrageCount; i++)
         {
+            Quaternion rotateAngle = Quaternion.AngleAxis(45 + 90 * i, Vector3.forward);
             EnemyBullet bullet = Factory.Instance.GetEnemyBullet(transform.position);
-            bullet.setDestination(transform.up + Vector3.right * i);
+            Vector3 destination = transform.position + rotateAngle * Vector3.up;
+            bullet.setDestination(destination);
         }
     }
 }

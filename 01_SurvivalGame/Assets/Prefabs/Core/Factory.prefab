@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1747616448017771943, guid: 32bed44a2dbf83b46b7fa50d6fb9f84c, type: 3}
-  poolSIze: 4
+  poolSIze: 64
 --- !u!1 &3562943204635448738
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,6 +81,7 @@ Transform:
   - {fileID: 4495787660000552610}
   - {fileID: 5312677849669663832}
   - {fileID: 5676715571442283244}
+  - {fileID: 5548777559188107663}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2944569442344090610
@@ -95,6 +96,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a323b679c945b5f44bee50f67ffa6307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4395509548720131834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5548777559188107663}
+  - component: {fileID: 6505780463749157809}
+  m_Layer: 0
+  m_Name: EnemyBulletObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5548777559188107663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4395509548720131834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6939097213245136688}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6505780463749157809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4395509548720131834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98fc890b2ba7a2a48add7c9c39432a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6514227892952478624, guid: a14c3df41b2356a42abd8155dfdffc10, type: 3}
+  poolSIze: 64
 --- !u!1 &4406995564341604585
 GameObject:
   m_ObjectHideFlags: 0
