@@ -17,12 +17,15 @@ public class Boss : EnemyBase
 
     IEnumerator StartAction()
     {
-
         float orgSpeed = speed;
         speed = 0.0f;
+        animator.SetTrigger("Appear");
+        rb.simulated = false;
+        transform.position = player.position + Vector3.right * 15.0f;
 
         yield return new WaitForSeconds(5.0f);
 
         speed = orgSpeed;
+        rb.simulated = true;
     }
 }

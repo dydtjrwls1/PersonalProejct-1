@@ -59,19 +59,18 @@ public class GameManager : SingleTon<GameManager>
     {
         Boss boss = FindObjectOfType<Boss>(true);
         boss.gameObject.SetActive(true);
-        boss.transform.position = player.transform.position + Vector3.right * 7.0f;
     }
 
     IEnumerator CameraMoving()
     {
         Camera[] cameras = FindObjectsOfType<Camera>(true);
 
-        cameras[0].gameObject.SetActive(true);
-        cameras[1].enabled = !cameras[1].enabled;
+        cameras[0].enabled = !cameras[0].enabled;
+        cameras[1].gameObject.SetActive(true);
 
         yield return new WaitForSeconds(5.0f);
 
-        cameras[0].gameObject.SetActive(false);
-        cameras[1].enabled = !cameras[1].enabled;
+        cameras[0].enabled = !cameras[0].enabled;
+        cameras[1].gameObject.SetActive(false);
     }
 }
