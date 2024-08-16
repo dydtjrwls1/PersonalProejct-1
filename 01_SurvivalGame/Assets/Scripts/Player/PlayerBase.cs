@@ -251,6 +251,10 @@ public class PlayerBase : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
 
+        ShootingZone shootingZone = GetComponentInChildren<ShootingZone>();
+        shootingZone.onEnemyEnter += (enemy) => enemiesInShootingZone.Add(enemy);
+        shootingZone.onEnemyExit += (enemy) => enemiesInShootingZone.Remove(enemy);
+
         // 무기 배열 초기화
         Transform spinPoint = transform.GetChild(4);
         for (int i = 0; i < spinPoint.childCount; i++)
@@ -303,9 +307,7 @@ public class PlayerBase : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-            enemiesInShootingZone.Add(collision.gameObject.transform);
-        else if (collision.gameObject.CompareTag("Coin"))
+        if (collision.gameObject.CompareTag("Coin"))
         {
             Coin coin = collision.gameObject.GetComponent<Coin>();
             Exp += coin.ExpPoint;
@@ -318,16 +320,6 @@ public class PlayerBase : MonoBehaviour
         }
             
             
-    }
-
-    /// <summary>
-    /// 사정거리에서 벗어난 적은 List 에서 제외
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-            enemiesInShootingZone.Remove(collision.gameObject.transform);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
