@@ -247,7 +247,7 @@ public class PlayerBase : MonoBehaviour
         // 필요한 컴포넌트 초기화
         action = new PlayerInputAction();
         animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+        sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
 
@@ -256,7 +256,7 @@ public class PlayerBase : MonoBehaviour
         shootingZone.onEnemyExit += (enemy) => enemiesInShootingZone.Remove(enemy);
 
         // 무기 배열 초기화
-        Transform spinPoint = transform.GetChild(4);
+        Transform spinPoint = transform.GetComponentInChildren<SpinPoint>().transform;
         for (int i = 0; i < spinPoint.childCount; i++)
         {
             meleeWeapons[i] = spinPoint.GetChild(i);
@@ -313,19 +313,18 @@ public class PlayerBase : MonoBehaviour
             Exp += coin.ExpPoint;
             collision.gameObject.SetActive(false);
         }
-        else if (collision.CompareTag("Player") && collision.gameObject.CompareTag("EnemyBullet"))
+        else if (collision.gameObject.CompareTag("EnemyBullet"))
         {
             Life--;
             collision.gameObject.SetActive(false);
         }
-            
-            
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
             Life--;
+        
     }
 
     /// <summary>

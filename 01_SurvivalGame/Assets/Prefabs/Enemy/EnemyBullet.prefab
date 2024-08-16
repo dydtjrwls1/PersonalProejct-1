@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4697898169573431313}
   - component: {fileID: 8322655187985921788}
   - component: {fileID: 6151953692066872242}
-  m_Layer: 7
+  m_Layer: 14
   m_Name: EnemyBullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 6514227892952478624}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -148,7 +148,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6151953692066872242
 MonoBehaviour:
   m_ObjectHideFlags: 0
