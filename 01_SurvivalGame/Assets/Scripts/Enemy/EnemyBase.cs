@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -39,8 +40,16 @@ public class EnemyBase : RecycleObject
     SpriteRenderer sr;
 
     // 현재 나아가는 방향
-    Vector3 direction;
+    Vector3 m_Direction;
 
+    public Vector3 Direction
+    {
+        get => m_Direction;
+        set
+        {
+            m_Direction = value;
+        }
+    }
     // 현재 체력
     int hp;
 
@@ -80,15 +89,15 @@ public class EnemyBase : RecycleObject
     /// </summary>
     protected virtual void FixedUpdate()
     {
-        rb.MovePosition(transform.position + Time.deltaTime * speed * direction);
+        rb.MovePosition(transform.position + Time.deltaTime * speed * Direction);
         Move();
     }
 
     // 모든 적의 기본적인 움직임 (플레이어를 추적한다)
-    private void Update()
+    protected virtual void Update()
     {
         Vector3 playerPosition = player.position;
-        direction = (playerPosition - transform.position).normalized;
+        Direction = (playerPosition - transform.position).normalized;
         sr.flipX = isAlive ? (transform.position.x > playerPosition.x) : sr.flipX; // 적이 플레이어 보다 오른쪽에 있으면 좌우반전 (살아 있을 때만)
         
     }
