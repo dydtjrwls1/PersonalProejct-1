@@ -124,7 +124,9 @@ public class Boss : EnemyBase
             yield return null;
         }
 
-        Vector3 destination = (player.position - transform.position).normalized; // 접근할 방향
+        Vector3 destination = player.position; // 접근할 위치
+        Vector3 direction = (destination - transform.position).normalized; // 접근할 방향
+
         elapsedTime = 0.0f;
 
         // 0.5초 대기
@@ -135,15 +137,16 @@ public class Boss : EnemyBase
         }
 
         // 빠른 속도로 목표 위치로 접근
-        elapsedTime = 0.0f;
+        float distanceToDestination = Vector3.Distance(destination, transform.position);
 
-        while (elapsedTime < 3.0f)
+        while (distanceToDestination > 0.1f)
         {
+            sr.flipX = sr.flipX;
             float tempSpeed = 10.0f; // 임시로 정해준 speed
             speed = tempSpeed;
-            Direction = destination; 
+            Direction = direction;
 
-            elapsedTime += Time.fixedDeltaTime;
+            distanceToDestination = Vector3.Distance(destination, transform.position);
 
             yield return null;
         }

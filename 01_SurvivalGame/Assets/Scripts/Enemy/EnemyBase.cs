@@ -29,7 +29,7 @@ public class EnemyBase : RecycleObject
     protected bool isAlive = true;
 
     // 플레이어 트랜스폼
-    static protected Transform player;
+    protected Transform player;
 
     // 애니메이션 파라미터용 해시값
     readonly int HitParameter_Hash = Animator.StringToHash("Hit");
@@ -37,7 +37,7 @@ public class EnemyBase : RecycleObject
 
     ScoreText scoreText;
 
-    SpriteRenderer sr;
+    protected SpriteRenderer sr;
 
     // 현재 나아가는 방향
     Vector3 m_Direction;
