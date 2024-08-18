@@ -46,7 +46,7 @@ public class TestBase : MonoBehaviour
 
     private void Test1_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        GameManager.Instance.Wave = 8;
+        Factory.Instance.GetSkeleton(new Vector3(10, 5));
     }
 
     private void Test2_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)

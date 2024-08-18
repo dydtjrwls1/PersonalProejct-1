@@ -21,11 +21,6 @@ public class Boss : EnemyBase
         StartCoroutine(AppearanceAction());
     }
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
     protected override void Update()
     {
         base.Update();
