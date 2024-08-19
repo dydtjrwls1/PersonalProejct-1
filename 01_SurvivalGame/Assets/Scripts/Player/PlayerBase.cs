@@ -98,6 +98,9 @@ public class PlayerBase : MonoBehaviour
     // 플레이어 스프라이트
     SpriteRenderer sr;
 
+    // 대쉬 이펙트 스프라이트
+    SpriteRenderer dashEffectSr;
+
     Rigidbody2D rb;
 
     // 가장 가까운 적의 Transform
@@ -108,6 +111,9 @@ public class PlayerBase : MonoBehaviour
 
     // 근접무기 배열
     Transform[] meleeWeapons = new Transform[5];
+
+    // 대쉬 이펙트 트랜스폼
+    Transform dashEffectTransform;
 
     // 플레이어 진행 방향
     Vector2 direction;
@@ -257,6 +263,8 @@ public class PlayerBase : MonoBehaviour
     // 애니메이션 제어를 위한 Speed 파라미터의 해쉬번호
     readonly int SpeedParameter_Hash = Animator.StringToHash("Speed");
 
+    readonly int DashParameter_Hash = Animator.StringToHash("Dash");
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -270,6 +278,10 @@ public class PlayerBase : MonoBehaviour
         ShootingZone shootingZone = GetComponentInChildren<ShootingZone>();
         shootingZone.onEnemyEnter += (enemy) => enemiesInShootingZone.Add(enemy);
         shootingZone.onEnemyExit += (enemy) => enemiesInShootingZone.Remove(enemy);
+
+        dashEffectTransform = transform.GetChild(2);
+        dashEffectSr = dashEffectTransform.GetComponent<SpriteRenderer>();
+
 
         // 무기 배열 초기화
         Transform spinPoint = transform.GetComponentInChildren<SpinPoint>().transform;
@@ -303,6 +315,7 @@ public class PlayerBase : MonoBehaviour
     private void Update()
     {
         // transform.Translate(Time.deltaTime * Speed * direction);
+        
     }
 
     private void OnEnable()
@@ -317,6 +330,7 @@ public class PlayerBase : MonoBehaviour
 
     private void OnDisable()
     {
+        action.Player.Dash.canceled -= Dash_performed;
         action.Player.Move.canceled -= Move_performed;
         action.Player.Move.performed -= Move_performed;
         action.Player.Disable();
@@ -345,7 +359,6 @@ public class PlayerBase : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
             Life--;
-        
     }
 
     /// <summary>
@@ -357,18 +370,12 @@ public class PlayerBase : MonoBehaviour
     {
         direction = context.ReadValue<Vector2>().normalized;
 
-        // 플레이어가 왼쪽으로 향하면 왼쪽을보고 오른쪽을 향하면 오른쪽을 본다.
-        if ((direction.x < 0.0f && !isFlipped) || (direction.x > 0.0f && isFlipped))
-        {
-            sr.flipX = !sr.flipX;
-            isFlipped = !isFlipped;
-            srWeapon.flipX = !srWeapon.flipX; // 무기 스프라이트 좌우 반전
-            srWeapon.sortingOrder = sr.flipX ? 2 : 0; // 캐릭터가 오른쪽을 보면 캐릭터보다 아래에 그리고 왼쪽을 보면 위에 그린다
-            // firePoint.localPosition = sr.flipX ? new Vector3(-0.7f, -0.1f) : new Vector3(0.7f, -0.1f);  // 무기 스프라이트 방향에 따라 firepoint 위치를 바꾼다.
-        }
+        FlipSpriteAndPosition();
 
         Speed = speed;
     }
+
+    
 
     private void Dash_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
@@ -497,11 +504,13 @@ public class PlayerBase : MonoBehaviour
     {
         float elapsedTime = 0.0f;
         float orgSpeed = Speed;
-        Speed *= 3;
+        Speed = 15.0f;
 
         gameObject.layer = ImmuneLayerNum; // 무적 레이어로 변경
 
         StartCoroutine(DashCoolDown()); // 대쉬 쿨타임 계산 시작
+
+        animator.SetTrigger(DashParameter_Hash);
 
         while (elapsedTime < 0.5f)
         {
@@ -530,6 +539,21 @@ public class PlayerBase : MonoBehaviour
         }
 
         onDash = true;
+    }
+
+    void FlipSpriteAndPosition()
+    {
+        // 플레이어가 왼쪽으로 향하면 왼쪽을보고 오른쪽을 향하면 오른쪽을 본다.
+        if ((direction.x < 0.0f && !isFlipped) || (direction.x > 0.0f && isFlipped))
+        {
+            sr.flipX = !sr.flipX;
+            isFlipped = !isFlipped;
+            srWeapon.flipX = !srWeapon.flipX; // 무기 스프라이트 좌우 반전
+            srWeapon.sortingOrder = sr.flipX ? 2 : 0; // 캐릭터가 오른쪽을 보면 캐릭터보다 아래에 그리고 왼쪽을 보면 위에 그린다
+            // firePoint.localPosition = sr.flipX ? new Vector3(-0.7f, -0.1f) : new Vector3(0.7f, -0.1f);  // 무기 스프라이트 방향에 따라 firepoint 위치를 바꾼다.
+            dashEffectTransform.localPosition *= -1;
+            dashEffectSr.flipX = !dashEffectSr.flipX;
+        }
     }
 
 #if UNITY_EDITOR
