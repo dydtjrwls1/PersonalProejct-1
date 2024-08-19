@@ -51,8 +51,7 @@ public class TestBase : MonoBehaviour
 
     private void Test2_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        Vector3 test = Quaternion.AngleAxis(90, Vector3.forward) * new Vector3(1, 2, 0);
-        Debug.Log(test);
+        player.Test_Dash();
     }
 
     private void Test3_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)

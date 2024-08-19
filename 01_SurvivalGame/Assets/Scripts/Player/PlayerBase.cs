@@ -18,6 +18,9 @@ public class PlayerBase : MonoBehaviour
     // 공격 간격
     public float fireInterval = 0.5f;
 
+    // 대쉬 쿨타임
+    public float dashCoolDown = 1.0f;
+
     // 액션 이벤트 델리게이트 함수
     public Action<int> levelUpAction = null;
 
@@ -31,6 +34,8 @@ public class PlayerBase : MonoBehaviour
     public Action onDie = null;
 
     public Action onHit = null;
+
+    float currentDashCoolDown = 0.0f;
 
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
@@ -238,6 +243,15 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public float CurrentDashCoolDown
+    {
+        get => currentDashCoolDown;
+        set
+        {
+            currentDashCoolDown = Mathf.Clamp(value, 0.0f, dashCoolDown); // 남은 대쉬 쿨타임은 0초와 dash쿨타임을 넘지 않는다.
+        }
+    }
+
     // 애니메이션 제어를 위한 Speed 파라미터의 해쉬번호
     readonly int SpeedParameter_Hash = Animator.StringToHash("Speed");
 
@@ -291,12 +305,12 @@ public class PlayerBase : MonoBehaviour
     {
         action.Player.Enable();
         action.Player.Move.performed += Move_performed;
-        action.Player.Move.canceled += Move_canceled;
+        action.Player.Move.canceled += Move_performed;
     }
 
     private void OnDisable()
     {
-        action.Player.Move.canceled -= Move_canceled;
+        action.Player.Move.canceled -= Move_performed;
         action.Player.Move.performed -= Move_performed;
         action.Player.Disable();
     }
@@ -472,6 +486,26 @@ public class PlayerBase : MonoBehaviour
         gameObject.layer = PlayerLayerNum;
     }
 
+    // 대쉬 기능
+    IEnumerator Dash()
+    {
+        float elapsedTime = 0.0f;
+        float orgSpeed = Speed;
+        Speed *= 3;
+
+        while (elapsedTime < dashCoolDown)
+        {
+            elapsedTime += Time.fixedDeltaTime;
+            CurrentDashCoolDown = dashCoolDown - elapsedTime;
+
+            Speed = Mathf.Lerp(Speed, orgSpeed, Time.fixedDeltaTime * 2.0f);
+
+            yield return null;
+        }
+
+        Speed = orgSpeed;
+    }
+
 #if UNITY_EDITOR
     public void Test_LevelUp()
     {
@@ -481,6 +515,11 @@ public class PlayerBase : MonoBehaviour
     public void Test_Die()
     {
         Life = 0;
+    }
+
+    public void Test_Dash()
+    {
+        StartCoroutine(Dash());
     }
 
     private void OnDrawGizmos()
