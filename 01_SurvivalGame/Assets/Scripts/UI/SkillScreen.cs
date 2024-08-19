@@ -21,6 +21,6 @@ public class SkillScreen : MonoBehaviour
 
     private void Update()
     {
-        dashIcon.fillAmount = player.CurrentDashCoolDown == 0.0f? 1.0f : player.CurrentDashCoolDown / player.dashCoolDown;
+        dashIcon.fillAmount = player.CurrentDashCoolDown == 0.0f? 0.0f : player.CurrentDashCoolDown / player.dashCoolDown;
     }
 }

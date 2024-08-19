@@ -8065,6 +8065,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7630011998781864720, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
+      propertyPath: dashCoolDown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630011998781864720, guid: c7232b965cbd0c546b4ff805849076cc, type: 3}
       propertyPath: fireInterval
       value: 1
       objectReference: {fileID: 0}

@@ -19,7 +19,7 @@ public class PlayerBase : MonoBehaviour
     public float fireInterval = 0.5f;
 
     // 대쉬 쿨타임
-    public float dashCoolDown = 1.0f;
+    public float dashCoolDown = 5.0f;
 
     // 액션 이벤트 델리게이트 함수
     public Action<int> levelUpAction = null;
@@ -39,6 +39,8 @@ public class PlayerBase : MonoBehaviour
 
     // 플레이어 현재 속도
     float currentSpeed = 0.0f;
+
+    bool onDash = true;
 
     // 플레이어 스프라이트의 좌우반전 확인용
     bool isFlipped = false;
@@ -248,7 +250,7 @@ public class PlayerBase : MonoBehaviour
         get => currentDashCoolDown;
         set
         {
-            currentDashCoolDown = Mathf.Clamp(value, 0.0f, dashCoolDown); // 남은 대쉬 쿨타임은 0초와 dash쿨타임을 넘지 않는다.
+            currentDashCoolDown = Mathf.Max(0.0f, value); // 0 보다 밑은 존재할 수 없다.
         }
     }
 
@@ -284,6 +286,8 @@ public class PlayerBase : MonoBehaviour
 
         Life = maxLife;
         MeleeCount = 1;
+
+        onDash = true;
     }
 
     private void Start()
@@ -306,7 +310,10 @@ public class PlayerBase : MonoBehaviour
         action.Player.Enable();
         action.Player.Move.performed += Move_performed;
         action.Player.Move.canceled += Move_performed;
+        action.Player.Dash.performed += Dash_performed;
     }
+
+    
 
     private void OnDisable()
     {
@@ -363,13 +370,12 @@ public class PlayerBase : MonoBehaviour
         Speed = speed;
     }
 
-    /// <summary>
-    /// 키보드 버튼을 뗀 순간 방향은 0 이 되는 함수 
-    /// </summary>
-    /// <param name="context"></param>
-    private void Move_canceled(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void Dash_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
-        Speed = 0.0f;
+        if (onDash)
+        {
+            StartCoroutine(Dash());
+        }
     }
 
     void SetMeleeWeapon()
@@ -493,17 +499,37 @@ public class PlayerBase : MonoBehaviour
         float orgSpeed = Speed;
         Speed *= 3;
 
-        while (elapsedTime < dashCoolDown)
-        {
-            elapsedTime += Time.fixedDeltaTime;
-            CurrentDashCoolDown = dashCoolDown - elapsedTime;
+        gameObject.layer = ImmuneLayerNum; // 무적 레이어로 변경
 
-            Speed = Mathf.Lerp(Speed, orgSpeed, Time.fixedDeltaTime * 2.0f);
+        StartCoroutine(DashCoolDown()); // 대쉬 쿨타임 계산 시작
+
+        while (elapsedTime < 0.5f)
+        {
+            elapsedTime += Time.deltaTime;
+
+            Speed = Mathf.Lerp(Speed, orgSpeed, Time.deltaTime * 2.0f);
 
             yield return null;
         }
 
+        gameObject.layer = PlayerLayerNum; // 무적 시간 종료
+
         Speed = orgSpeed;
+    }
+
+    IEnumerator DashCoolDown()
+    {
+        CurrentDashCoolDown = 0.0f;
+        onDash = false;
+
+        while (currentDashCoolDown < dashCoolDown)
+        {
+            CurrentDashCoolDown += Time.deltaTime;
+
+            yield return null;
+        }
+
+        onDash = true;
     }
 
 #if UNITY_EDITOR
