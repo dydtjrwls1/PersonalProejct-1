@@ -57,7 +57,7 @@ public class TestBase : MonoBehaviour
 
     private void Test3_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        GameManager.Instance.Wave++;
+        GameManager.Instance.Wave = 8;
     }
    
     private void Test4_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)

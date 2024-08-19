@@ -7,7 +7,24 @@ public class Boss : EnemyBase
     // 플레이어와 보스 사이의 거리
     float distance;
 
+    // 돌진 패턴 시 속도
+    float dashSpeed = 10.0f;
+
     bool onPattern = false;
+
+    // player 추적 패턴시 플레이어를 추적할 시간
+    float playerChaseTime = 1.5f;
+
+    SpriteRenderer targetSr;
+
+    Transform targetPoint;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        targetSr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        targetPoint = transform.GetChild(0);
+    }
 
     protected override void OnEnable()
     {
@@ -96,6 +113,8 @@ public class Boss : EnemyBase
         speed = 0.0f;           // 정지
         onPattern = true;       // 패턴이 시작됨으로써 값 변경
 
+        targetSr.color = Color.red;
+
         // Line 생성
         LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
 
@@ -109,8 +128,10 @@ public class Boss : EnemyBase
         // 1.5 초 동안 플레이어 위치로 line 그리기
         float elapsedTime = 0.0f;
 
-        while (elapsedTime < 1.5f)
+        while (elapsedTime < playerChaseTime)
         {
+            targetPoint.position = player.position;
+
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, player.position);
 
@@ -131,14 +152,17 @@ public class Boss : EnemyBase
             yield return null;
         }
 
+        // targetPoint 숨기기
+        targetSr.color = Color.clear;
+
         // 빠른 속도로 목표 위치로 접근
         float distanceToDestination = Vector3.Distance(destination, transform.position);
 
         while (distanceToDestination > 0.1f)
         {
             sr.flipX = sr.flipX;
-            float tempSpeed = 10.0f; // 임시로 정해준 speed
-            speed = tempSpeed;
+
+            speed = dashSpeed;
             Direction = direction;
 
             distanceToDestination = Vector3.Distance(destination, transform.position);
