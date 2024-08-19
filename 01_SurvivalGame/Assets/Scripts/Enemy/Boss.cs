@@ -156,7 +156,7 @@ public class Boss : EnemyBase
         targetSr.color = Color.clear;
 
         // 빠른 속도로 목표 위치로 접근
-        float distanceToDestination = Vector3.Distance(destination, transform.position);
+        float distanceToDestination = Vector3.SqrMagnitude(destination - transform.position);
 
         while (distanceToDestination > 0.1f)
         {
