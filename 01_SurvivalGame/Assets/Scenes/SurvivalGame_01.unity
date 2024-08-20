@@ -5727,11 +5727,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1028373292}
-  - {fileID: 1431870112}
   - {fileID: 1346448506}
   - {fileID: 1914675017}
   - {fileID: 603391776}
   - {fileID: 118615932}
+  - {fileID: 1431870112}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5834,6 +5834,8 @@ GameObject:
   - component: {fileID: 1431870112}
   - component: {fileID: 1431870114}
   - component: {fileID: 1431870113}
+  - component: {fileID: 1431870116}
+  - component: {fileID: 1431870115}
   m_Layer: 5
   m_Name: GameStartPanel
   m_TagString: Untagged
@@ -5900,6 +5902,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431870111}
   m_CullTransparentMesh: 1
+--- !u!114 &1431870115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431870111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33a2d4ceafe90a4ca5fb391395c9ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &1431870116
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431870111}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1473016328
 PrefabInstance:
   m_ObjectHideFlags: 0

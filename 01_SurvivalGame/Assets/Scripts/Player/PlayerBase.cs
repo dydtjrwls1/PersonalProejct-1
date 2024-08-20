@@ -163,10 +163,8 @@ public class PlayerBase : MonoBehaviour
         get { return currentSpeed; }
         set
         {
-            if (value < 0.1f)
-                currentSpeed = value;
-            else 
-                currentSpeed = value + AddedSpeed;
+            currentSpeed = value;
+            
             animator.SetFloat(SpeedParameter_Hash, currentSpeed);
         }
     }
@@ -372,7 +370,7 @@ public class PlayerBase : MonoBehaviour
 
         FlipSpriteAndPosition();
 
-        Speed = speed;
+        Speed = speed + AddedSpeed;
     }
 
     

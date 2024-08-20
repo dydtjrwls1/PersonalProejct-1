@@ -51,7 +51,6 @@ public class TestBase : MonoBehaviour
 
     private void Test2_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        player.Test_Dash();
     }
 
     private void Test3_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
@@ -61,7 +60,6 @@ public class TestBase : MonoBehaviour
    
     private void Test4_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        player.Test_LevelUp();
     }
 
     private void Test5_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
